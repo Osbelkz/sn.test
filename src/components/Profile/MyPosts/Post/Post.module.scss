@@ -1,0 +1,21 @@
+.post {
+  padding: 10px;
+
+  img {
+    border-radius: 50%;
+    width: 60px;
+  }
+
+  &__header {
+    padding: 10px 0;
+    display: flex;
+  }
+
+  &__body {
+  }
+
+  &__footer {
+    /*padding: 10px 0;*/
+    /*display: flex;*/
+  }
+}

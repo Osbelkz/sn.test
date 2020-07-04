@@ -17,8 +17,15 @@
   border-radius: 5px;
 
   &:hover {
-    background-color: $hoverColor;
-    color: $textColor;
+    background-color: $hoverButtonColor;
+    color: $textAroundColor;
+  }
+
+  &__name {
+    flex: 0 1 auto;
+    margin-left: 10px;
+    align-self: center;
+    color: $textAroundColor;
   }
 
   //&__photo {
@@ -34,10 +41,5 @@
   //  }
   //}
 
-  &__name {
-    flex: 0 1 auto;
-    margin-left: 10px;
-    align-self: center;
-    color: $textColor;
-  }
+
 }

@@ -1,7 +1,8 @@
+@import "src/mainColors";
+
 .app-wrapper {
     display: grid;
     width: 100%;
-    color: white;
 }
 
 .app-wrapper-content {
@@ -9,6 +10,7 @@
     width: 1000px;
     padding: 20px;
     overflow: hidden;
+    color: $textContentColor;
     margin: 100px auto 0 auto;
 }
 

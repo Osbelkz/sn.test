@@ -11,16 +11,16 @@
 .item {
     padding: 15px;
     border-radius: 5px;
-    color: $textColor;
+    color: $textAroundColor;
     text-decoration: none;
     display: block;
     &:hover{
-        background-color: $hoverColor;
-        color: $textColor;
+        background-color: $hoverButtonColor;
+        color: $textAroundColor;
     }
     &.active {
-        background-color: #eee;
-        color: $textActiveColor;
+        background-color: $activeButtonColor;
+        color: $textActiveButtonColor;
     }
 
 }

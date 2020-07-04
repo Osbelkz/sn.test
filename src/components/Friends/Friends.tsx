@@ -1,18 +1,35 @@
 import React from "react";
 import classes from './Friends.module.scss'
-import {NavLink} from "react-router-dom";
+import {FriendsType} from "../../redux/state";
 
-const Friends = () => {
-    return (
-        <nav className={classes.nav}>
-            <NavLink to="/profile"  className={classes.item} activeClassName={classes.active}>PROFILE</NavLink>
-            <NavLink to="/messages" className={classes.item} activeClassName={classes.active}>MESSAGES</NavLink>
-            <NavLink to="/news" className={classes.item} activeClassName={classes.active}>NEWS</NavLink>
-            <NavLink to="/music" className={classes.item} activeClassName={classes.active}>MUSIC</NavLink>
-            <NavLink to="/settings" className={classes.item} activeClassName={classes.active}>SETTINGS</NavLink>
-        </nav>
-    )
+
+type PropsType = {
+    friends: Array<FriendsType>
 }
 
+const Friends = (props: PropsType) => {
+    let friends_bar = props.friends.map(name => (
+        <div className={classes.profile}>
+            <div style={{
+                background: `url(${name.img}) 0 0/cover no-repeat`,
+                width: "50px",
+                height: "50px",
+                borderRadius: '50%',
+                border: 'lavender 2px solid'
+            }}/>
+            {/*            <div className={classes.profile__photo}>
+                <img src={name.img} alt=""/>
+            </div>*/}
+            <div className={classes.profile__name}>{name.name}</div>
+        </div>)
+    )
+
+
+    return (
+        <div className={classes.sidebar}>
+            {friends_bar}
+        </div>
+    );
+};
 
 export default Friends;

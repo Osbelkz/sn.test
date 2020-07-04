@@ -1,21 +1,15 @@
 import classes from './MyPosts.module.scss'
 import React from "react";
 import Post from "./Post/Post";
+import {PostsType} from "../../../redux/state";
 
-type PostDataType = {
-    id:number
-    message: string
-    likeCounter: number
+type PropsType = {
+    posts: Array<PostsType>
 }
 
-function MyPosts() {
+function MyPosts(props: PropsType) {
 
-    let postData: Array<PostDataType> = [
-        {id: 1, message: "It's my first post", likeCounter: 333},
-        {id: 1, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. ", likeCounter: 356}
-    ];
-
-    let postElemets = postData.map(post=><Post key={post.id} message={post.message} likeCount={post.likeCounter}/>);
+    let postElemets = props.posts.map(post=><Post key={post.id} message={post.message} likeCount={post.likeCounter}/>);
 
     return (
         <div>

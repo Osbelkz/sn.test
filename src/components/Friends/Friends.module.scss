@@ -1,27 +1,41 @@
-.nav {
-  background-color: #1C1D1C;
+.sidebar {
   padding: 100px 15px 15px 15px;
   position: fixed;
   width: 200px;
   z-index: 1;
   right: 0;
   height: 100%;
+  background-color: #1C1D1C;
 }
 
-.item {
-  padding: 10px;
-  border-radius: 10px;
-  color: lavender;
-  text-decoration: none;
-  display: block;
+.profile {
+  display: flex;
+  padding: 5px;
+  justify-content: left;
+  border-radius: 5px;
 
   &:hover {
     background-color: #292a2b;
     color: #fff;
   }
 
-  &.active {
-    background-color: #eee;
-    color: #000;
+  //&__photo {
+  //  flex: 0 0 50px;
+  //  border: lavender 2px solid;
+  //  border-radius: 50%;
+  //  width: 50px;
+  //  height: 50px;
+  //  overflow: hidden;
+  //
+  //  img {
+  //    height: 50px;
+  //  }
+  //}
+
+  &__name {
+    flex: 0 1 auto;
+    margin-left: 10px;
+    align-self: center;
+    color: white;
   }
 }

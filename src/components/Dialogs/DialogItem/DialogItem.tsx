@@ -10,7 +10,14 @@ type DialogItemPropsType = {
 function DialogItem(props: DialogItemPropsType) {
     return (
         <div key={props.id} className={classes.dialog}>
-            <NavLink to={`/messages/${props.id}`}>{props.name}</NavLink>
+            <NavLink to={`/messages/${props.id}`}>
+                <div className={classes.dialog__body}>
+                    <div className={classes.dialog__photo}></div>
+                    <div className={classes.dialog__name}>{props.name}</div>
+                </div>
+
+
+            </NavLink>
         </div>
     )
 }

@@ -60,8 +60,8 @@ let state: StateType = {
         ],
         messages: [
             {id: 1, message: "Hi"},
-            {id: 2, message: "How are you"},
-            {id: 3, message: "Monolog"},
+            {id: 2, message: "How are you l"},
+            {id: 3, message: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took "},
             {id: 4, message: "Yo"}
         ],
     },

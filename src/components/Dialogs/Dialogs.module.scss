@@ -1,12 +1,55 @@
 .dialogs {
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 3fr 10fr;
+  padding: 10px 0;
 }
 
 .dialogItems {
+  padding: 15px;
+  border-right: 1px solid #D5D7DB ;
+  &__header {
+  }
+  &__body {
 
+  }
 }
 
 .messages {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
+
+
+/* родитель */
+.block{
+  display:flex;
+  justify-content: flex-end;
+  border: 10px solid #306c9a;
+}
+
+/* flex-контейнер */
+.block__row{
+  border: 10px solid #ece89d;
+  display:flex;
+  width: 80%;
+  flex-direction: row-reverse;
+}
+
+/* flex-элемент */
+.block__element{
+  border: 5px solid #5e5373;
+  width: 50px;
+  height: 50px;
+}
+
+/* контент */
+.block__content{
+  background-color: #18b5a4;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #5e5373;
+  /* плюс прочие стили для текста, отступы */
 }

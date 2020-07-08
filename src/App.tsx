@@ -18,7 +18,7 @@ type AppPropsType = {
 function App(props: AppPropsType) {
     return (
         <div className="app-wrapper">
-            <Header/>
+            {/*<Header/>*/}
             <Nav/>
             <div className='app-wrapper-content'>
                 <Switch>

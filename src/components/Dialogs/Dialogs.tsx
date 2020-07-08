@@ -18,16 +18,28 @@ function Dialogs(props: PropsType) {
 
 
 
-    let messagesElements = props.state.messages.map(m => <Message message={m.message} key={m.id}/>)
+    let messagesElements = props.state.messages.map(m => <Message message={m} key={m.id}/>)
 
     return (
         <Wrapper>
             <div className={classes.dialogs}>
                 <div className={classes.dialogItems}>
-                    {dialogsElements}
+                    <div className={classes.dialogItems__header}>
+                        <h3>Conversation</h3>
+                        <div>search </div>
+                    </div>
+                    <div className={classes.dialogItems__body}>{dialogsElements}</div>
                 </div>
                 <div className={classes.messages}>
                     {messagesElements}
+
+                    <div className={classes.block}>
+                        <div className={classes.block__row}>
+                            <div className={classes.block__element}></div>
+                            <div className={classes.block__content}></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </Wrapper>

@@ -9,17 +9,27 @@ type PropsType = {
 
 function MyPosts(props: PropsType) {
 
-    let postElemets = props.posts.map(post=><Post key={post.id} message={post.message} likeCount={post.likeCounter}/>);
+    let postElements = props.posts.map(post=><Post key={post.id} message={post.message} likeCount={post.likeCounter}/>);
+
+    let newPostElement: any = React.createRef()
+
+    let addPost = () => {
+        let text = newPostElement.current.value;
+            alert(text)
+    }
+
+
 
     return (
         <div>
             <h3>My Posts</h3>
             <div>
-                <textarea placeholder='type a post'/>
-                <button>Send</button>
+                <textarea ref={newPostElement}
+                    placeholder='type a post'/>
+                <button onClick={addPost}>Send</button>
             </div>
             <div className={classes.posts}>
-                {postElemets}
+                {postElements}
             </div>
 
         </div>

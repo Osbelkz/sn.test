@@ -2,7 +2,7 @@
 
 .nav {
     background-color: $around;
-    padding: 100px 15px 15px 15px;
+    padding: 100px 0 0 0;
     position: fixed;
     width: 200px;
     height: 100%;
@@ -10,7 +10,6 @@
 }
 .item {
     padding: 15px;
-    border-radius: 5px;
     color: $textAroundColor;
     text-decoration: none;
     display: block;
@@ -21,6 +20,7 @@
     &.active {
         background-color: $activeButtonColor;
         color: $textActiveButtonColor;
+        font-weight: 600;
     }
 
 }

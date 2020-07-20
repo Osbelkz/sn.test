@@ -9,7 +9,7 @@ type PropsType = {
 
 const Friends = (props: PropsType) => {
     let friends_bar = props.friends.map(name => (
-        <div className={classes.profile}>
+        <div key={name.id} className={classes.profile}>
             <div style={{
                 background: `url(${name.img}) 0 0/cover no-repeat`,
                 width: "50px",

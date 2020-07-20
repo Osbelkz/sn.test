@@ -1,13 +1,20 @@
 import classes from "./Post.module.scss";
 import React from "react";
 import postPhoto from '../../../../assets/post-photo.jpg'
+import {addLikeActionCreator, DispatchType} from "../../../../redux/state";
 
 type PropsType = {
-    message: string,
-    likeCount: number,
+    message: string
+    likeCount: number
+    dispatch: DispatchType
+    id: string
 }
 
+
 function Post(props: PropsType) {
+
+    const OnClickHandler = () => props.dispatch(addLikeActionCreator(props.id))
+
     return (
         <div className={classes.post}>
             <div className={classes.post__header}>
@@ -18,7 +25,7 @@ function Post(props: PropsType) {
                 {props.message}
             </div>
             <div className={classes.post__footer}>
-                <button>LIKE {props.likeCount}</button>
+                <button onClick={OnClickHandler}>LIKE {props.likeCount}</button>
             </div>
 
         </div>

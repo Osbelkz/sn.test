@@ -3,6 +3,7 @@
 .app-wrapper {
     display: grid;
     width: 100%;
+    position: relative;
 }
 
 .app-wrapper-content {
@@ -11,7 +12,7 @@
     padding: 20px;
     overflow: hidden;
     color: $textContentColor;
-    margin: 100px auto 0 auto;
+    margin: 60px auto 0 auto;
 }
 
 

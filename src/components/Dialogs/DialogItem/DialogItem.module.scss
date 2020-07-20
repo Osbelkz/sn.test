@@ -3,6 +3,7 @@
   border-radius: 5px;
   background-color: #fff;
   margin-bottom: 10px;
+  display: block;
   &__body {
     display: flex;
     padding: 5px;
@@ -20,5 +21,11 @@
     margin-left: 10px;
     align-self: center;
     color: #000;
+  }
+  &.active {
+    background-color: #4546a5;
+    div {
+      color: white;
+    }
   }
 }

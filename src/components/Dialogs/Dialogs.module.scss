@@ -19,37 +19,21 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  &__input {
+    text-align: center;
+    display: flex;
+    input {
+      width: 100%;
+      height: 30px;
+      padding: 10px;
+    }
+    button {
+      background-color: #1f4068;
+      color: white;
+      font-size: 16px;
+      padding: 0 10px;
+    }
+  }
 }
 
 
-
-/* родитель */
-.block{
-  display:flex;
-  justify-content: flex-end;
-  border: 10px solid #306c9a;
-}
-
-/* flex-контейнер */
-.block__row{
-  border: 10px solid #ece89d;
-  display:flex;
-  width: 80%;
-  flex-direction: row-reverse;
-}
-
-/* flex-элемент */
-.block__element{
-  border: 5px solid #5e5373;
-  width: 50px;
-  height: 50px;
-}
-
-/* контент */
-.block__content{
-  background-color: #18b5a4;
-  width: 50px;
-  height: 50px;
-  border: 5px solid #5e5373;
-  /* плюс прочие стили для текста, отступы */
-}

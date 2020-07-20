@@ -1,6 +1,10 @@
 .post {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  background-color: #fff;
+  border-radius: 5px;
   padding: 10px;
-
   img {
     border-radius: 50%;
     width: 60px;
@@ -12,10 +16,16 @@
   }
 
   &__body {
+    align-self: center;
   }
 
   &__footer {
-    /*padding: 10px 0;*/
-    /*display: flex;*/
+    align-self: center;
+    button {
+      border-radius: 5px;
+      padding: 10px;
+      background-color: coral;
+      color: white;
+    }
   }
 }

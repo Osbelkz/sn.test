@@ -6,7 +6,6 @@
   }
   &__photo {
     align-self: flex-end;
-    margin: 0 10px;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -17,102 +16,33 @@
     }
   }
   &__body {
+    margin-left: 10px;
     border-radius: 10px 10px 10px 0;
     color: black;
     padding: 10px;
-    background-color: lavender;
-    box-shadow: rgba(123, 104,238, 0.5) 2px 2px ;
-  }
-  &__userName {
-    font-weight: 600;
-    color: mediumslateblue;
-  }
-}
-
-.right {
-  display:flex;
-  justify-content: flex-end;
-  &__row {
-    flex-direction: row-reverse;
-  }
-  &__body {
-    border-radius: 10px 10px 0 10px;
-    background-color: #4546A5;
-    color: white;
-  }
-}
-
-
-
-/*
-.message {
-  border: #1f4068 2px solid;
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
-  &__photo {
-    align-self: flex-end;
-    margin: 0 10px;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background: #1f4068;
-    img {
-      align-self: end;
-      width: 70px;
-
-    }
-  }
-  &__body {
-    display: inline-block;
-    position: relative;
-    border-radius: 10px 10px 10px 0;
-    color: black;
-    padding: 10px;
-    background-color: lavender;
-    box-shadow: rgba(123, 104,238, 0.5) 2px 2px ;
+    background-color: #fff;
   }
   &__userName {
     font-weight: 600;
     color: mediumslateblue;
   }
   &__time {
-    bottom: 5px;
-    right: 20px;
-    font-size: 12px;
-    color: dimgray;
-    position: absolute;
+    margin: 0 10px;
+    color: #E7E8F1;
   }
 }
 
 .right {
-  flex-direction: row-reverse;
-  &__photo {
-    margin-left: 10px;
+  display:flex;
+  justify-content: flex-end;
+  text-align: right;
+  &__row {
+    flex-direction: row-reverse;
+  }
+  &__body {
+    margin-right: 10px;
+    border-radius: 10px 10px 0 10px;
+    background-color: #4546A5;
+    color: white;
   }
 }
-*/
-
-/*
-.body {
-    position: relative;
-    border-radius: 24px;
-    background: #e8e8e8;
-    box-shadow:  -5px 5px 6px #aeaeae,
-    5px -5px 6px #ffffff;
-    padding: 15px;
-}
-*/
-
-/*.body:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    width: 30px;
-    height: 30px;
-    bottom: 0;
-    left: -30px;
-    background-color: white;
-    border-radius: 10px;
-}*/
-

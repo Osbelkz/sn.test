@@ -1,3 +1,31 @@
+.MyPosts {
+  padding: 20px;
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+}
+
 .posts {
+  &__input {
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    textarea {
+      resize: none;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+
+    }
+    button {
+      background-color: #1f4068;
+      color: white;
+      font-size: 16px;
+      padding: 0 10px;
+    }
+  }
 }
 

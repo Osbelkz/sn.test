@@ -9,13 +9,22 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
-import {StateType} from "./redux/state";
+import {DispatchType, StateType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
+
+    dispatch: DispatchType
 }
 
 function App(props: AppPropsType) {
+
+    const ProfileRoute = () => <Profile
+        newPostText={props.state.profilePage.newPostText}
+        state={props.state.profilePage}
+        dispatch={props.dispatch}
+    />
+
     return (
         <div className="app-wrapper">
             {/*<Header/>*/}
@@ -23,16 +32,16 @@ function App(props: AppPropsType) {
             <div className='app-wrapper-content'>
                 <Switch>
                     <Route path='/profile'
-                           render={() => <Profile
-                               state={props.state.profilePage}/>}/>
+                           render={ProfileRoute}/>
                     <Route path='/messages'
                            render={() => <Dialogs
+                               dispatch={props.dispatch}
+                               newMessageText={props.state.dialogsPage.newMessageText}
                                state={props.state.dialogsPage}/>}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
-                    <Route path='/' render={() => <Profile
-                        state={props.state.profilePage}/>}/>
+                    <Route path='/' render={ProfileRoute}/>
                 </Switch>
 
             </div>

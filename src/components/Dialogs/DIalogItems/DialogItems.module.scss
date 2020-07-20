@@ -1,0 +1,34 @@
+.dialogItems {
+  padding: 10px 15px;
+  border-right: 1px solid #D5D7DB ;
+  &__header {
+    margin: 0 0 10px 0;
+    &__search {
+      border: 1px solid #E4E3E6;
+      width: 100%;
+
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      &::placeholder {
+        opacity: .5;
+        font-size: 12px;
+      }
+      img {
+        height: 30px;
+      }
+      input {
+        background-color: #F1F3F4;
+      }
+
+    }
+    &__filter {
+      margin-top: 10px;
+
+
+    }
+  }
+  &__body {
+
+  }
+}

@@ -4,7 +4,6 @@ import diko from "./../assets/profile_photo/diko.jpg"
 import gera from "./../assets/profile_photo/gera.jpg"
 import {uuid} from "uuidv4";
 import {RerenderEntireTreeType} from "../index";
-import {deepEqual} from "assert";
 
 enum ACTION_TYPE {
     ADD_POST = "ADD-POST",
@@ -135,7 +134,6 @@ let store: StoreType = {
                     this._callSubscriber(store.getState())
                 }
             case ACTION_TYPE.ADD_LIKE:
-                debugger
                 let post = this._state.profilePage.posts.find(post => post.id === action.id)
                 if (post) {
                     post.likeCounter = post.likeCounter + 1

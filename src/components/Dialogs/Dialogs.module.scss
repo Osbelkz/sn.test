@@ -1,39 +1,9 @@
 .dialogs {
+  max-width: 100%;
   display: grid;
-  grid-template-columns: 3fr 10fr;
+  grid-template-columns: 3fr 7fr;
   padding: 10px 0;
 }
 
-.dialogItems {
-  padding: 15px;
-  border-right: 1px solid #D5D7DB ;
-  &__header {
-  }
-  &__body {
-
-  }
-}
-
-.messages {
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  &__input {
-    text-align: center;
-    display: flex;
-    input {
-      width: 100%;
-      height: 30px;
-      padding: 10px;
-    }
-    button {
-      background-color: #1f4068;
-      color: white;
-      font-size: 16px;
-      padding: 0 10px;
-    }
-  }
-}
 
 

@@ -2,17 +2,20 @@
 
 .app-wrapper {
     display: grid;
-    width: 100%;
+    max-width: 100%;
     position: relative;
 }
 
 .app-wrapper-content {
     box-sizing: border-box;
-    width: 1000px;
+    max-width: 1000px;
     padding: 20px;
     overflow: hidden;
     color: $textContentColor;
     margin: 60px auto 0 auto;
 }
 
-
+h3 {
+    font-weight: 600;
+    font-size: 16px;
+}

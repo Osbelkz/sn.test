@@ -18,7 +18,6 @@ const Profile = (props: PropsType) => {
             <Wrapper><MyPosts newPostText={props.newPostText}
                               dispatch={props.dispatch}
                               posts={props.state.posts}/></Wrapper>
-
         </div>
     )
 }

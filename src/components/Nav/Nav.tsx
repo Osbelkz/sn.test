@@ -28,10 +28,21 @@ const Nav = () => {
 
     return (
         <nav className={classes.nav}>
-            {navItems.map(navItem=><NavLink to={navItem.pathTo} key={navItem.id} className={classes.item} activeClassName={classes.active}>
-                <div className={classes.item__icon}><img src={navItem.icon} alt=""/></div>
-                <div className={classes.item__name}>{navItem.navName}</div>
-            </NavLink>)}
+            <div className={classes.nav__items}>
+                {navItems.map(navItem => (
+                    <NavLink
+                        to={navItem.pathTo}
+                        key={navItem.id}
+                        className={classes.item}
+                        activeClassName={classes.active}>
+                        <div className={classes.item__icon}>
+                            <img src={navItem.icon} alt=""/>
+                        </div>
+                        <div className={classes.item__name}>
+                            {navItem.navName}
+                        </div>
+                    </NavLink>))}
+            </div>
         </nav>
     )
 }

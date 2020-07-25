@@ -2,11 +2,10 @@ import classes from './MyPosts.module.scss'
 import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
 import {
-    addPostActionCreator,
     DispatchType,
     PostsType,
-    updateNewPostTextActionCreator
 } from "../../../redux/state";
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profilePage-reducer';
 
 type PropsType = {
     posts: Array<PostsType>
@@ -25,6 +24,7 @@ function MyPosts(props: PropsType) {
 
     function addPost(): void {
         props.dispatch(addPostActionCreator())
+        props.dispatch(updateNewPostTextActionCreator(''))
     }
 
     function onPostChange(e: ChangeEvent<HTMLTextAreaElement>): void {

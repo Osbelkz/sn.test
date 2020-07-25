@@ -4,6 +4,9 @@ import diko from "./../assets/profile_photo/diko.jpg"
 import gera from "./../assets/profile_photo/gera.jpg"
 import {uuid} from "uuidv4";
 import {RerenderEntireTreeType} from "../index";
+import {profileReducer} from "./profilePage-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 
 
@@ -52,7 +55,7 @@ export type StoreType = {
 }
 
 
-enum ACTION_TYPE {
+export enum ACTION_TYPE {
     ADD_POST = "ADD-POST",
     UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
     ADD_LIKE = "ADD-LIKE",
@@ -120,73 +123,12 @@ let store: StoreType = {
     },
 
     dispatch(action) {
-        switch (action.type) {
-            case ACTION_TYPE.ADD_POST: {
-                if (this._state.profilePage.newPostText) {
-                    let newPost: PostsType = {
-                        id: uuid(),
-                        message: this._state.profilePage.newPostText,
-                        likeCounter: 0
-                    }
-                    this._state.profilePage.posts.push(newPost)
-                    this._state.profilePage.newPostText = '';
-                    this._callSubscriber(store.getState())
-                }
-                break
-            }
-            case ACTION_TYPE.UPDATE_NEW_POST_TEXT : {
-                if (action.newPostText) {
-                    this._state.profilePage.newPostText = action.newPostText;
-                    this._callSubscriber(store.getState())
-                }
-                break
-            }
-            case ACTION_TYPE.ADD_LIKE: {
-                let post = this._state.profilePage.posts.find(post => post.id === action.id)
-                if (post) {
-                    post.likeCounter = post.likeCounter + 1
-                }
-                this._callSubscriber(store.getState())
-                break
-            }
-            case ACTION_TYPE.ADD_MESSAGE: {
-                if (this._state.dialogsPage.newMessageText) {
-                    let newMessage: MessagesType = {
-                        id: uuid(),
-                        message: this._state.dialogsPage.newMessageText,
-                    }
-                    this._state.dialogsPage.messages.push(newMessage)
-                    this._state.dialogsPage.newMessageText = ''
-                    this._callSubscriber(store.getState())
-                }
-                break
-            }
-            case ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT: {
-                if (action.newMessageText) {
-                    this._state.dialogsPage.newMessageText = action.newMessageText;
-                    this._callSubscriber(store.getState())
-                }
-                break
-            }
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage,action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage,action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar,action)
+        this._callSubscriber(this._state)
     },
 };
 
-export const addPostActionCreator = (): DispatchActionType =>
-    ({type: ACTION_TYPE.ADD_POST})
-
-export const updateNewPostTextActionCreator = (text: string): DispatchActionType =>
-    ({type: ACTION_TYPE.UPDATE_NEW_POST_TEXT, newPostText: text})
-
-
-export const addLikeActionCreator = (id: string): DispatchActionType =>
-    ({type: ACTION_TYPE.ADD_LIKE, id: id})
-
-export const addMessageActionCreator = (): DispatchActionType =>
-    ({type: ACTION_TYPE.ADD_MESSAGE})
-
-
-export const updateNewMessageTextActionCreator = (text: string): DispatchActionType =>
-    ({type: ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT, newMessageText: text})
 
 export default store;

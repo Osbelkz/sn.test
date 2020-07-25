@@ -1,7 +1,8 @@
 import classes from "./Post.module.scss";
 import React from "react";
 import postPhoto from '../../../../assets/post-photo.jpg'
-import {addLikeActionCreator, DispatchType} from "../../../../redux/state";
+import {DispatchType} from "../../../../redux/state";
+import { addLikeActionCreator } from "../../../../redux/profilePage-reducer";
 
 type PropsType = {
     message: string

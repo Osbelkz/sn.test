@@ -2,11 +2,10 @@ import Message from "./Message/Message";
 import React, {ChangeEvent} from "react";
 import classes from "./Messages.module.scss";
 import {
-    addMessageActionCreator,
     DispatchType,
     MessagesType,
-    updateNewMessageTextActionCreator
 } from "../../../redux/state";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogs-reducer";
 
 
 
@@ -26,6 +25,7 @@ export function Messages(props: MessagesPropsType) {
 
     function addMessage(): void {
         props.dispatch(addMessageActionCreator())
+        props.dispatch(updateNewMessageTextActionCreator(""))
     }
 
     return <div className={classes.messages}>

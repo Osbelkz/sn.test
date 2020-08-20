@@ -77,7 +77,8 @@ export const dialogsReducer = (state=initialState, action: DialogsActionType) =>
                 messages: [
                     ...state.messages,
                     {id: uuid(), message: state.newMessageText}
-                    ]
+                    ],
+                newMessageText: ""
             }
         }
         default:

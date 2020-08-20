@@ -14,7 +14,6 @@ type PropsType = {
 }
 
 function Dialogs(props: PropsType) {
-
     return (
         <Wrapper>
             <div className={classes.dialogs}>

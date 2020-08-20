@@ -60,7 +60,8 @@ export const profileReducer = (state = initialState, action: profilePageActionTy
                 posts: [
                     ...state.posts,
                     {id: uuid(), message: state.newPostText, likeCounter: 0}
-                ]
+                ],
+                newPostText: ""
             }
         case ACTION_TYPE.UPDATE_NEW_POST_TEXT :
             return {

@@ -6,8 +6,8 @@ import {Route, Switch} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import Friends from "./components/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import SidebarContainer from "./components/Sidebar/SidebarContainer";
 
 type AppPropsType = {
 }
@@ -20,9 +20,9 @@ function App(props: AppPropsType) {
             <div className='app-wrapper-content'>
                 <Switch>
                     <Route path='/profile'
-                           render={() => <Profile/>}/>
+                           component={Profile}/>
                     <Route path='/messages'
-                           render={() => <DialogsContainer/>}/>
+                           component={DialogsContainer}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
@@ -30,7 +30,7 @@ function App(props: AppPropsType) {
                 </Switch>
 
             </div>
-            <Friends/>
+            <SidebarContainer/>
         </div>
     );
 }

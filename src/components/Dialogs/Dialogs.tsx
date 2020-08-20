@@ -3,20 +3,15 @@ import classes from './Dialogs.module.scss'
 import Wrapper from "../Wrapper/Wrapper";
 import {DialogItems} from "./DIalogItems/DialogItems";
 import {Messages} from "./Messages/Messages";
-import {
-    DialogsPageType,
-    DispatchType,
-} from "../../redux/state";
+import {DialogsPageType} from "../../redux/dialogs-reducer";
 
 
 type PropsType = {
     state: DialogsPageType
     newMessageText: string
-    dispatch: DispatchType
+    onChangeMessageText: (newMessageText: string) => void
+    addMessage: () => void
 }
-
-
-
 
 function Dialogs(props: PropsType) {
 
@@ -24,7 +19,11 @@ function Dialogs(props: PropsType) {
         <Wrapper>
             <div className={classes.dialogs}>
                 <DialogItems dialogs={props.state.dialogs}/>
-                <Messages messages={props.state.messages} newMessageText={props.newMessageText} dispatch={props.dispatch}/>
+                <Messages messages={props.state.messages}
+                          newMessageText={props.newMessageText}
+                          onChangeMessageText={props.onChangeMessageText}
+                          addMessage={props.addMessage}
+                />
             </div>
         </Wrapper>
     );

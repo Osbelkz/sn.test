@@ -1,70 +1,94 @@
 import {uuid} from "uuidv4";
-import {ACTION_TYPE, DispatchActionType, ProfilePageType} from "./state";
+import {ACTION_TYPE} from "./types";
+
+
+export type PostsType = {
+    id: string
+    message: string
+    likeCounter: number
+}
+
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    newPostText: string
+}
+
+export type AddPostActionType = {
+    type: ACTION_TYPE.ADD_POST
+}
+export type UpdateNewPostTextActionType = {
+    type: ACTION_TYPE.UPDATE_NEW_POST_TEXT
+    newPostText: string
+}
+export type AddLikeActionType = {
+    type: ACTION_TYPE.ADD_LIKE
+    postId: string
+}
+
+export type profilePageActionType = AddPostActionType | UpdateNewPostTextActionType | AddLikeActionType
 
 let initialState: ProfilePageType = {
     posts: [
         {id: uuid(), message: "It's my first post", likeCounter: 333},
         {id: uuid(), message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. ", likeCounter: 356}
     ],
-    newPostText: 'fd'
+    newPostText: ''
 }
 
-export const profileReducer = (state = initialState, action: DispatchActionType) => {
+export const profileReducer = (state = initialState, action: profilePageActionType) => {
 
-    const actionObj: { [key: string]: any } = {
-        [ACTION_TYPE.ADD_POST]: {
-            ...state,
-            posts: [...state.posts, {id: uuid(), message: state.newPostText, likeCounter: 0}]
-        },
-        [ACTION_TYPE.UPDATE_NEW_POST_TEXT]: {
-            ...state,
-            newPostText: action.newPostText
-        },
-        [ACTION_TYPE.ADD_LIKE]: {
-            ...state,
-            posts: state.posts.map(item=>item.id===action.id ? {...item, likeCounter: item.likeCounter+1}: item)
-        },
-    }
-    return actionObj[action.type] && actionObj[action.type] || state
-
-    // switch (action.type) {
-    //     case ACTION_TYPE.ADD_POST: {
-    //         if (state.newPostText) {
-    //             let newPost: PostsType = {
-    //                 id: uuid(),
-    //                 message: state.newPostText,
-    //                 likeCounter: 0
-    //             }
-    //             state.posts.push(newPost)
-    //             state.newPostText = '';
-    //         }
-    //         break
-    //     }
-    //     case ACTION_TYPE.UPDATE_NEW_POST_TEXT : {
-    //         if (action.newPostText) {
-    //             state.newPostText = action.newPostText;
-    //         }
-    //         break
-    //     }
-    //     case ACTION_TYPE.ADD_LIKE: {
-    //         let post = state.posts.find(post => post.id === action.id)
-    //         if (post) {
-    //             post.likeCounter = post.likeCounter + 1
-    //         }
-    //         break
-    //     }
-    //
+    // const actionObj: { [key: string]: ProfilePageType } = {
+    //     [ACTION_TYPE.ADD_POST]: {
+    //         ...state,
+    //         posts: [...state.posts, {id: uuid(), message: state.newPostText, likeCounter: 0}]
+    //     },
+    //     [ACTION_TYPE.UPDATE_NEW_POST_TEXT]: {
+    //         ...state,
+    //         newPostText: action.newPostText
+    //     },
+    //     [ACTION_TYPE.ADD_LIKE]: {
+    //         ...state,
+    //         posts: state.posts.map(item=>item.id===action.postId ? {...item, likeCounter: item.likeCounter+1}: item)
+    //     },
     // }
-    //
-    // return state;
+    // return actionObj[action.type] && actionObj[action.type] || state
+
+    switch (action.type) {
+        case ACTION_TYPE.ADD_POST:
+            return {
+                ...state,
+                posts: [
+                    ...state.posts,
+                    {id: uuid(), message: state.newPostText, likeCounter: 0}
+                ]
+            }
+        case ACTION_TYPE.UPDATE_NEW_POST_TEXT :
+            return {
+                ...state,
+                newPostText: action.newPostText
+            }
+        case ACTION_TYPE.ADD_LIKE:
+            return {
+                ...state,
+                posts: state.posts.map(post => post.id === action.postId
+                    ? {...post, likeCounter: post.likeCounter + 1}
+                    : post)
+            }
+        default:
+            return state;
+    }
 }
 
 
-export const addPostActionCreator = (): DispatchActionType =>
-    ({type: ACTION_TYPE.ADD_POST})
+export const addPostActionCreator = (): AddPostActionType => {
+    return {type: ACTION_TYPE.ADD_POST};
+}
 
-export const updateNewPostTextActionCreator = (text: string): DispatchActionType =>
-    ({type: ACTION_TYPE.UPDATE_NEW_POST_TEXT, newPostText: text})
+export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType => {
+    return {type: ACTION_TYPE.UPDATE_NEW_POST_TEXT, newPostText: text};
+}
 
-export const addLikeActionCreator = (id: string): DispatchActionType =>
-    ({type: ACTION_TYPE.ADD_LIKE, id: id})
+export const addLikeActionCreator = (postId: string): AddLikeActionType => {
+    return {type: ACTION_TYPE.ADD_LIKE, postId: postId};
+}
+

@@ -1,9 +1,19 @@
-import {DispatchActionType, SidebarType} from "./state";
 import {uuid} from "uuidv4";
 import os from "../assets/profile_photo/os.jpg";
 import banzai from "../assets/profile_photo/banzai.jpg";
 import diko from "../assets/profile_photo/diko.jpg";
 import gera from "../assets/profile_photo/gera.jpg";
+
+
+export type FriendsType = {
+    id: string
+    name: string
+    img: string
+}
+
+export type SidebarType = {
+    friends: Array<FriendsType>
+}
 
 let initialState: SidebarType = {
     friends: [
@@ -14,8 +24,13 @@ let initialState: SidebarType = {
     ]
 }
 
-export const sidebarReducer = (state=initialState, action: DispatchActionType) => {
+export type SidebarActionType = {
+    type: any
+}
 
-
-    return state;
+export const sidebarReducer = (state=initialState, action: SidebarActionType) => {
+    switch (action.type) {
+        default:
+            return state;
+    }
 }

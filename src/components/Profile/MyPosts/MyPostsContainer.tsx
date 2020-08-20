@@ -1,58 +1,46 @@
-import classes from './MyPosts.module.scss'
-import React, {ChangeEvent} from "react";
-import Post from "./Post/Post";
+import React from "react";
+import MyPosts from "./MyPosts";
 import {
-    DispatchType,
-    PostsType,
-} from "../../../redux/state";
+    addPostActionCreator,
+    updateNewPostTextActionCreator,
+    addLikeActionCreator
+} from "../../../redux/profilePage-reducer";
+import StoreContext from "../../../StoreContext";
 
 
+type MyPostsContainerType = {}
 
-type PropsType = {
-    posts: Array<PostsType>
-    newPostText: string
-    addPost: ()=>void
-    updateNewPostText: (newPostText: string) => void
-    addLike: ()=>void
-}
-
-
-function MyPosts(props: PropsType) {
-
-    let postElements = props.posts.map(post => <Post key={post.id}
-                                                     postId={post.id}
-                                                     message={post.message}
-                                                     addLike={props.addLike}
-                                                     likeCount={post.likeCounter}/>);
-
-    function addPost(): void {
-        props.addPost();
-        // props.dispatch(addPostActionCreator())
-        // props.dispatch(updateNewPostTextActionCreator(''))
-    }
-
-    function onPostChange(e: ChangeEvent<HTMLTextAreaElement>): void {
-        props.updateNewPostText(e.currentTarget.value)
-        // props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
-    }
+function MyPostsContainer(props: MyPostsContainerType) {
 
 
     return (
-        <div className={classes.MyPosts}>
-            <h3>My Posts</h3>
-            <div className={classes.posts__input}>
-                <textarea onChange={onPostChange}
-                          value={props.newPostText}
-                          placeholder='type a post...'/>
-                <button onClick={addPost}>Post</button>
-            </div>
-            <div className={classes.posts}>
-                {postElements}
-            </div>
+        <StoreContext.Consumer>
+            { (store) => {
+                let state = store.getState()
 
-        </div>
+                function addPost(): void {
+                    store.dispatch(addPostActionCreator())
+                    store.dispatch(updateNewPostTextActionCreator(''))
+                }
+
+                function onPostChange(newPostText: string): void {
+                    store.dispatch(updateNewPostTextActionCreator(newPostText))
+                }
+
+                function addLike(postId: string): void {
+                    store.dispatch(addLikeActionCreator(postId))
+                }
+               return  <MyPosts posts={state.profilePage.posts}
+                         newPostText={state.profilePage.newPostText}
+                         addPost={addPost}
+                         updateNewPostText={onPostChange}
+                         addLike={addLike}/>
+            }
+        }
+        </StoreContext.Consumer>
+
     )
 }
 
 
-export default MyPosts;
+export default MyPostsContainer;

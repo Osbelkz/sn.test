@@ -1,25 +1,39 @@
 import React from "react";
-import classes from './Dialogs.module.scss'
 import Wrapper from "../Wrapper/Wrapper";
-import {DialogItems} from "./DIalogItems/DialogItems";
-import {Messages} from "./Messages/Messages";
 import {StoreType} from "../../redux/types";
+import Dialogs from "./Dialogs";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
+import StoreContext from "../../StoreContext";
 
 
 type PropsType = {
-    store: StoreType
 }
 
-function Dialogs(props: PropsType) {
+function DialogsContainer(props: PropsType) {
 
     return (
-        <Wrapper>
-            <div className={classes.dialogs}>
-                <DialogItems dialogs={props.state.dialogs}/>
-                <Messages messages={props.state.messages} newMessageText={props.newMessageText} dispatch={props.dispatch}/>
-            </div>
-        </Wrapper>
+        <StoreContext.Consumer>
+            { (store) => {
+                let state = store.getState()
+
+                function onChangeInputText(newMessageText: string): void {
+                    store.dispatch(updateNewMessageTextActionCreator(newMessageText))
+                }
+
+                function addMessage(): void {
+                    store.dispatch(addMessageActionCreator())
+                    store.dispatch(updateNewMessageTextActionCreator(""))
+                }
+                return <Wrapper>
+                    <Dialogs newMessageText={state.dialogsPage.newMessageText}
+                             state={state.dialogsPage}
+                             onChangeMessageText={onChangeInputText}
+                             addMessage={addMessage}
+                    />
+                </Wrapper>
+            }}
+        </StoreContext.Consumer>
+
     );
 }
-
-export default Dialogs;
+export default DialogsContainer;

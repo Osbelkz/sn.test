@@ -2,7 +2,7 @@ import React from "react";
 import classes from './DialogItems.module.scss'
 import SearchIcon from '../../../assets/Find-Outline.svg'
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogsType} from "../../../redux/state";
+import {DialogsType} from "../../../redux/dialogs-reducer";
 
 
 type DialogItemPropsType = {

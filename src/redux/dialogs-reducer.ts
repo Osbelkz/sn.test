@@ -1,5 +1,32 @@
 import {uuid} from "uuidv4";
-import {ACTION_TYPE, DispatchActionType, DialogsPageType} from "./state";
+import {ACTION_TYPE} from "./types";
+
+export type MessagesType = {
+    id: string
+    message: string
+}
+
+export type DialogsType = {
+    id: string
+    name: string
+}
+
+export type DialogsPageType = {
+    dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
+    newMessageText: string
+}
+
+export type AddMessageActionType = {
+    type: ACTION_TYPE.ADD_MESSAGE
+}
+export type UpdateNewMessageTextActionType = {
+    type: ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT
+    newMessageText: string
+}
+
+export type DialogsActionType = AddMessageActionType | UpdateNewMessageTextActionType
+
 
 let initialState: DialogsPageType = {
     dialogs: [
@@ -20,52 +47,48 @@ let initialState: DialogsPageType = {
     newMessageText: 'hi'
 }
 
-export const dialogsReducer = (state=initialState, action: DispatchActionType) => {
+export const dialogsReducer = (state=initialState, action: DialogsActionType) => {
 
-    const actionObj: { [key: string]: any  } = {
-        [ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT]: {
-            ...state,
-            newMessageText: action.newMessageText
-        },
-        [ACTION_TYPE.ADD_MESSAGE]: {
-            ...state,
-            messages: [...state.messages, {id: uuid(),
-                message: state.newMessageText,}]
-        },
-    }
-    return actionObj[action.type] && actionObj[action.type] || state
-
-
-
-    // switch (action.type) {
-    //     case ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT: {
-    //         if (action.newMessageText) {
-    //             state.newMessageText = action.newMessageText;
-    //         }
-    //         return state
-    //     }
-    //
-    //     case ACTION_TYPE.ADD_MESSAGE: {
-    //         if (state.newMessageText) {
-    //             let newMessage: MessagesType = {
-    //                 id: uuid(),
-    //                 message: state.newMessageText,
-    //             }
-    //             state.messages.push(newMessage)
-    //             state.newMessageText = ''
-    //         }
-    //         return state
-    //     }
-    //     default:
-    //         return state
-    //
+    // const actionObj: { [key: string]: any  } = {
+    //     [ACTION_TYPE.ADD_MESSAGE]: {
+    //         ...state,
+    //         messages: [...state.messages, {id: uuid(),
+    //             message: state.newMessageText,}]
+    //     },
+    //     [ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT]: {
+    //         ...state,
+    //         newMessageText: action.newMessageText
+    //     },
     // }
-    // return state;
+    // return actionObj[action.type] && actionObj[action.type] || state
+
+
+
+    switch (action.type) {
+        case ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT: {
+            return {
+                ...state,
+                newMessageText: action.newMessageText
+            }
+        }
+        case ACTION_TYPE.ADD_MESSAGE: {
+            return {
+                ...state,
+                messages: [
+                    ...state.messages,
+                    {id: uuid(), message: state.newMessageText}
+                    ]
+            }
+        }
+        default:
+            return state
+    }
 }
 
 
-export const addMessageActionCreator = (): DispatchActionType =>
-    ({type: ACTION_TYPE.ADD_MESSAGE})
-
-export const updateNewMessageTextActionCreator = (text: string): DispatchActionType =>
-    ({type: ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT, newMessageText: text})
+export const addMessageActionCreator = (): AddMessageActionType => {
+    return {type: ACTION_TYPE.ADD_MESSAGE}
+}
+export const updateNewMessageTextActionCreator = (newMessageText: string): UpdateNewMessageTextActionType => {
+   return  {type: ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT, newMessageText: newMessageText}
+}

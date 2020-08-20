@@ -1,34 +1,34 @@
 import classes from './MyPosts.module.scss'
 import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
-import {
-    DispatchType,
-    PostsType,
-} from "../../../redux/state";
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profilePage-reducer';
+import {PostsType} from "../../../redux/profilePage-reducer";
+
 
 type PropsType = {
     posts: Array<PostsType>
-    dispatch: DispatchType
     newPostText: string
+    addPost: ()=>void
+    updateNewPostText: (newPostText: string) => void
+    addLike: (postId: string)=>void
 }
 
 
 function MyPosts(props: PropsType) {
 
     let postElements = props.posts.map(post => <Post key={post.id}
-                                                     id={post.id}
+                                                     postId={post.id}
                                                      message={post.message}
-                                                     dispatch={props.dispatch}
+                                                     addLike={props.addLike}
                                                      likeCount={post.likeCounter}/>);
 
-    function addPost(): void {
-        props.dispatch(addPostActionCreator())
-        props.dispatch(updateNewPostTextActionCreator(''))
+    function onAddPost(): void {
+        if (props.newPostText) {
+            props.addPost();
+        }
     }
 
     function onPostChange(e: ChangeEvent<HTMLTextAreaElement>): void {
-        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
+        props.updateNewPostText(e.currentTarget.value)
     }
 
 
@@ -39,7 +39,7 @@ function MyPosts(props: PropsType) {
                 <textarea onChange={onPostChange}
                           value={props.newPostText}
                           placeholder='type a post...'/>
-                <button onClick={addPost}>Post</button>
+                <button onClick={onAddPost}>Post</button>
             </div>
             <div className={classes.posts}>
                 {postElements}

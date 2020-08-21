@@ -1,34 +1,35 @@
 import {uuid} from "uuidv4";
-import {ACTION_TYPE} from "./types";
 
-export type MessagesType = {
+enum DIALOGS_ACTION_TYPE {
+    ADD_MESSAGE = "ADD-MESSAGE",
+    UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
+}
+
+export interface MessagesType {
     id: string
     message: string
 }
-
-export type DialogsType = {
+export interface DialogsType {
     id: string
     name: string
 }
-
-export type DialogsPageType = {
+export interface DialogsPageStateType {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageText: string
 }
 
-export type AddMessageActionType = {
-    type: ACTION_TYPE.ADD_MESSAGE
+interface AddMessageActionType {
+    type: DIALOGS_ACTION_TYPE.ADD_MESSAGE
 }
-export type UpdateNewMessageTextActionType = {
-    type: ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT
+interface UpdateNewMessageTextActionType {
+    type: DIALOGS_ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT
     newMessageText: string
 }
 
-export type DialogsActionType = AddMessageActionType | UpdateNewMessageTextActionType
+export type DialogsActionTypes = AddMessageActionType | UpdateNewMessageTextActionType
 
-
-let initialState: DialogsPageType = {
+let initialState: DialogsPageStateType = {
     dialogs: [
         {id: uuid(), name: "Diko"},
         {id: uuid(), name: "Almaz"},
@@ -47,7 +48,7 @@ let initialState: DialogsPageType = {
     newMessageText: 'hi'
 }
 
-export const dialogsReducer = (state=initialState, action: DialogsActionType) => {
+export const dialogsReducer = (state=initialState, action: DialogsActionTypes) => {
 
     // const actionObj: { [key: string]: any  } = {
     //     [ACTION_TYPE.ADD_MESSAGE]: {
@@ -62,16 +63,14 @@ export const dialogsReducer = (state=initialState, action: DialogsActionType) =>
     // }
     // return actionObj[action.type] && actionObj[action.type] || state
 
-
-
     switch (action.type) {
-        case ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT: {
+        case DIALOGS_ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT: {
             return {
                 ...state,
                 newMessageText: action.newMessageText
             }
         }
-        case ACTION_TYPE.ADD_MESSAGE: {
+        case DIALOGS_ACTION_TYPE.ADD_MESSAGE: {
             return {
                 ...state,
                 messages: [
@@ -87,9 +86,9 @@ export const dialogsReducer = (state=initialState, action: DialogsActionType) =>
 }
 
 
-export const addMessageActionCreator = (): AddMessageActionType => {
-    return {type: ACTION_TYPE.ADD_MESSAGE}
+export const addMessageAC = (): AddMessageActionType => {
+    return {type: DIALOGS_ACTION_TYPE.ADD_MESSAGE}
 }
-export const updateNewMessageTextActionCreator = (newMessageText: string): UpdateNewMessageTextActionType => {
-   return  {type: ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT, newMessageText: newMessageText}
+export const updateNewMessageTextAC = (newMessageText: string): UpdateNewMessageTextActionType => {
+   return  {type: DIALOGS_ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT, newMessageText: newMessageText}
 }

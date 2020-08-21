@@ -7,6 +7,7 @@ type PropsType = {
     likeCount: number
     postId: string
     addLike: (postId: string) => void
+    deletePost: (postId: string) => void
 }
 
 
@@ -17,20 +18,32 @@ function Post(props: PropsType) {
         // props.dispatch(addLikeActionCreator(props.id))
     }
 
+    const onDeletePost = () => {
+        props.deletePost(props.postId)
+    }
+
 
     return (
         <div className={classes.post}>
-            <div className={classes.post__header}>
+
+            <div className={classes.post__authorPhoto}>
                 <div><img src={postPhoto} alt=""/></div>
-                <p>Lorem Ipsum is simply</p>
-            </div>
-            <div className={classes.post__body}>
-                {props.message}
-            </div>
-            <div className={classes.post__footer}>
-                <button onClick={OnClickHandler}>LIKE {props.likeCount}</button>
             </div>
 
+            <div className={classes.post__body}>
+
+                <div className={classes.post__body_header}>Post Author</div>
+
+                <div className={classes.post__body_text}>
+                    {props.message}
+                </div>
+
+                <div className={classes.post__body_footer}>
+                    <button onClick={OnClickHandler}>LIKE {props.likeCount}</button>
+                    <button onClick={onDeletePost}>Delete Post</button>
+                </div>
+
+            </div>
         </div>
     )
 }

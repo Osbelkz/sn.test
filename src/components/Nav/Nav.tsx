@@ -20,6 +20,7 @@ const Nav = () => {
     let navItems: Array<NavItemsType> = [
         {id: uuid(), pathTo: '/profile', icon: Profile, navName: 'PROFILE'},
         {id: uuid(), pathTo: '/messages', icon: Chat, navName: 'MESSAGES'},
+        {id: uuid(), pathTo: '/users', icon: Chat, navName: 'USERS'},
         {id: uuid(), pathTo: '/news', icon: News, navName: 'NEWS'},
         {id: uuid(), pathTo: '/music', icon: Music, navName: 'MUSIC'},
         {id: uuid(), pathTo: '/settings', icon: Settings, navName: 'SETTINGS'},

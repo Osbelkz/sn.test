@@ -1,10 +1,8 @@
 import React from "react";
 import classes from "./Sidebar.module.scss"
-import {SidebarType} from "../../redux/sidebar-reducer";
+import {SidebarContainerPropsType} from "./SidebarContainer";
 
-type PropsType = {
-    sidebar: SidebarType
-}
+type PropsType = SidebarContainerPropsType
 
 const Sidebar = (props: PropsType) => {
 

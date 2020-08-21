@@ -3,15 +3,10 @@ import classes from './Dialogs.module.scss'
 import Wrapper from "../Wrapper/Wrapper";
 import {DialogItems} from "./DIalogItems/DialogItems";
 import {Messages} from "./Messages/Messages";
-import {DialogsPageType} from "../../redux/dialogs-reducer";
+import {DialogsContainerPropsType} from "./DialogsContainer";
 
 
-type PropsType = {
-    state: DialogsPageType
-    newMessageText: string
-    onChangeMessageText: (newMessageText: string) => void
-    addMessage: () => void
-}
+type PropsType = DialogsContainerPropsType
 
 function Dialogs(props: PropsType) {
     return (

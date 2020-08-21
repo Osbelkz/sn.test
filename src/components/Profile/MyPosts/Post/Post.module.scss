@@ -1,6 +1,5 @@
 .post {
   display: flex;
-  justify-content: space-between;
   margin-top: 10px;
   background-color: #fff;
   border-radius: 5px;
@@ -9,23 +8,32 @@
     border-radius: 50%;
     width: 60px;
   }
-
-  &__header {
-    padding: 10px 0;
-    display: flex;
+  &__authorPhoto {
+    margin-right: 10px;
   }
 
   &__body {
-    align-self: center;
-  }
-
-  &__footer {
-    align-self: center;
-    button {
-      border-radius: 5px;
-      padding: 10px;
-      background-color: coral;
-      color: white;
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+    }
+    &_text {
+      margin-top: 10px;
+    }
+    &_footer {
+      margin-top: 10px;
+      button {
+        border-radius: 5px;
+        padding: 10px;
+        background-color: coral;
+        color: white;
+      }
     }
   }
+
+
+
+
+
 }

@@ -4,18 +4,16 @@ import banzai from "../assets/profile_photo/banzai.jpg";
 import diko from "../assets/profile_photo/diko.jpg";
 import gera from "../assets/profile_photo/gera.jpg";
 
-
-export type FriendsType = {
+export interface FriendsType {
     id: string
     name: string
     img: string
 }
-
-export type SidebarType = {
+export interface SidebarStateType {
     friends: Array<FriendsType>
 }
 
-let initialState: SidebarType = {
+let initialState: SidebarStateType = {
     friends: [
         {id: uuid(), name: 'Os', img: os},
         {id: uuid(), name: 'Banzai', img: banzai},
@@ -24,11 +22,11 @@ let initialState: SidebarType = {
     ]
 }
 
-export type SidebarActionType = {
+export type SidebarActionTypes = {
     type: any
 }
 
-export const sidebarReducer = (state=initialState, action: SidebarActionType) => {
+export const sidebarReducer = (state=initialState, action: SidebarActionTypes) => {
     switch (action.type) {
         default:
             return state;

@@ -8,9 +8,9 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import SidebarContainer from "./components/Sidebar/SidebarContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
-type AppPropsType = {
-}
+type AppPropsType = {}
 
 function App(props: AppPropsType) {
 
@@ -19,16 +19,14 @@ function App(props: AppPropsType) {
             <Nav/>
             <div className='app-wrapper-content'>
                 <Switch>
-                    <Route path='/profile'
-                           component={Profile}/>
-                    <Route path='/messages'
-                           component={DialogsContainer}/>
+                    <Route path='/profile' component={Profile}/>
+                    <Route path='/messages' component={DialogsContainer}/>
+                    <Route path='/users' component={UsersContainer}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
-                    <Route path='/' render={()=><Profile/>}/>
+                    <Route path='/' component={Profile}/>
                 </Switch>
-
             </div>
             <SidebarContainer/>
         </div>

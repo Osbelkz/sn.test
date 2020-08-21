@@ -1,15 +1,14 @@
 import React from "react";
-import MyPosts from "./MyPosts";
 import {
-    addPostActionCreator,
-    updateNewPostTextActionCreator,
-    addLikeActionCreator
-} from "../../../redux/profilePage-reducer";
-import {connect} from "react-redux";
-import {DispatchType, StateType} from "../../../redux/types";
+    updateNewPostTextAC, addPostAC, addLikeAC, deletePostAC
+} from "../../../redux/profile-page-reducer";
+import {connect, ConnectedProps} from "react-redux";
+import {DispatchType} from "../../../redux/types";
+import {StoreType} from "../../../redux/redux-store";
+import MyPosts from "./MyPosts";
 
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: StoreType) => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText
@@ -19,18 +18,22 @@ const mapStateToProps = (state: StateType) => {
 const mapDispatchToProps = (dispatch: DispatchType) => {
     return {
         updateNewPostText: (newPostText: string): void => {
-            dispatch(updateNewPostTextActionCreator(newPostText))
+            dispatch(updateNewPostTextAC(newPostText))
         },
         addPost: (): void => {
-            dispatch(addPostActionCreator())
+            dispatch(addPostAC())
         },
         addLike: (postId: string): void => {
-            dispatch(addLikeActionCreator(postId))
+            dispatch(addLikeAC(postId))
+        },
+        deletePost: (postId: string): void => {
+            dispatch(deletePostAC(postId))
         }
     }
 }
 
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+export type MyPostsContainerPropsType = ConnectedProps<typeof MyPostsContainer>
 
-export default MyPostsContainer;
+export default MyPostsContainer(MyPosts);

@@ -1,17 +1,10 @@
 import classes from './MyPosts.module.scss'
 import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
-import {PostsType} from "../../../redux/profilePage-reducer";
+import {MyPostsContainerPropsType} from "./MyPostsContainer";
 
 
-type PropsType = {
-    posts: Array<PostsType>
-    newPostText: string
-    addPost: ()=>void
-    updateNewPostText: (newPostText: string) => void
-    addLike: (postId: string)=>void
-}
-
+type PropsType = MyPostsContainerPropsType
 
 function MyPosts(props: PropsType) {
 
@@ -19,7 +12,8 @@ function MyPosts(props: PropsType) {
                                                      postId={post.id}
                                                      message={post.message}
                                                      addLike={props.addLike}
-                                                     likeCount={post.likeCounter}/>);
+                                                     likeCount={post.likeCounter}
+                                                     deletePost={props.deletePost}/>);
 
     function onAddPost(): void {
         if (props.newPostText) {

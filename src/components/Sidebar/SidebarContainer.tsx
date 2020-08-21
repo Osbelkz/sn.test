@@ -1,10 +1,11 @@
 import React from "react";
-import {connect} from "react-redux";
-import {DispatchType, StateType} from "../../redux/types";
+import {connect, ConnectedProps} from "react-redux";
+import {DispatchType} from "../../redux/types";
 import Sidebar from "./Sidebar";
+import {StoreType} from "../../redux/redux-store";
 
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: StoreType) => {
     return {
         sidebar: state.sidebar
     }
@@ -16,6 +17,8 @@ const mapDispatchToProps = (dispatch: DispatchType) => {
     }
 }
 
-const SidebarContainer = connect(mapStateToProps, mapDispatchToProps)(Sidebar)
+const SidebarContainer = connect(mapStateToProps, mapDispatchToProps)
 
-export default SidebarContainer;
+export type SidebarContainerPropsType = ConnectedProps<typeof SidebarContainer>
+
+export default SidebarContainer(Sidebar);

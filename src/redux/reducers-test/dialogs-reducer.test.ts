@@ -1,4 +1,4 @@
-import {addMessageAC, DialogsPageStateType, dialogsReducer, updateNewMessageTextAC} from "../dialogs-reducer";
+import {addMessageAC, DialogsPageStateType, dialogsReducer, updateNewMessageTextAC} from "../reducers/dialogs-reducer";
 import {v1} from "uuid";
 
 describe("dialogs-page reducer test", () => {

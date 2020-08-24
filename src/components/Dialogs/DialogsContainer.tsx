@@ -1,6 +1,6 @@
 import React from "react";
 import Dialogs from "./Dialogs";
-import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {addMessageAC, updateNewMessageTextAC} from "../../redux/reducers/dialogs-reducer";
 import {connect, ConnectedProps} from "react-redux";
 import {DispatchType} from "../../redux/types";
 import {StoreType} from "../../redux/redux-store";

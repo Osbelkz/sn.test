@@ -6,10 +6,14 @@ enum USERS_ACTION_TYPE {
 
 export interface UserType {
     id: string
-    fullName: string
+    name: string
     followed: boolean
     status: string
-    location: { city: string, country: string }
+    uniqueUrlName: string | null
+    photos: {
+        small: string | null
+        large: string | null
+    }
 }
 export interface UsersStateType {
     users: Array<UserType>

@@ -1,7 +1,7 @@
-import {ProfilePageActionTypes} from "./profile-page-reducer";
-import {SidebarActionTypes} from "./sidebar-reducer";
-import {DialogsActionTypes} from "./dialogs-reducer";
-import {UsersActionTypes} from "./users-reducer";
+import {ProfilePageActionTypes} from "./reducers/profile-page-reducer";
+import {SidebarActionTypes} from "./reducers/sidebar-reducer";
+import {DialogsActionTypes} from "./reducers/dialogs-reducer";
+import {UsersActionTypes} from "./reducers/users-reducer";
 
 export type DispatchType = (action: DispatchActionType) => void
 

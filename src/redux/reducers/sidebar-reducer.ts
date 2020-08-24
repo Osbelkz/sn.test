@@ -1,8 +1,8 @@
 import {uuid} from "uuidv4";
-import os from "../assets/profile_photo/os.jpg";
-import banzai from "../assets/profile_photo/banzai.jpg";
-import diko from "../assets/profile_photo/diko.jpg";
-import gera from "../assets/profile_photo/gera.jpg";
+import os from "../../assets/profile_photo/os.jpg";
+import banzai from "../../assets/profile_photo/banzai.jpg";
+import diko from "../../assets/profile_photo/diko.jpg";
+import gera from "../../assets/profile_photo/gera.jpg";
 
 export interface FriendsType {
     id: string

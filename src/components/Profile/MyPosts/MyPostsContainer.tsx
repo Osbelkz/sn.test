@@ -1,7 +1,7 @@
 import React from "react";
 import {
     updateNewPostTextAC, addPostAC, addLikeAC, deletePostAC
-} from "../../../redux/profile-page-reducer";
+} from "../../../redux/reducers/profile-page-reducer";
 import {connect, ConnectedProps} from "react-redux";
 import {DispatchType} from "../../../redux/types";
 import {StoreType} from "../../../redux/redux-store";

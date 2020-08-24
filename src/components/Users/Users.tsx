@@ -1,18 +1,20 @@
 import React from "react";
-import {uuid} from "uuidv4";
 import Wrapper from "../Wrapper/Wrapper";
 import {UsersContainerPropsType} from "./UsersContainer";
+import axios from "axios"
+import {UserType} from "../../redux/reducers/users-reducer";
+import userDefaultPhoto from "./../../assets/userDefaultPhoto.png"
 
 type PropsType = UsersContainerPropsType
 
 function Users(props: PropsType) {
+
     if (!props.users.length) {
-        props.setUsers([
-            {id: uuid(), followed: true, fullName: 'Os', location: {city: "Petropavl", country: "KZ"}, status: "youu"},
-            {id: uuid(), followed: true, fullName: 'Banzai', location: {city: "Osmk", country: "RU"}, status: "ddddddd"},
-            {id: uuid(), followed: false, fullName: 'Diko', location: {city: "Astana", country: "KZ"}, status: "sd"},
-            {id: uuid(), followed: false, fullName: 'Gera', location: {city: "Moscow", country: "RU"}, status: "sdf"},
-        ])
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response=>{
+                let users: Array<UserType> = response.data.items
+                props.setUsers(response.data.items)
+            })
     }
 
     return (
@@ -20,17 +22,17 @@ function Users(props: PropsType) {
             <div>
                 {props.users.map(user => (
                     <div key={user.id}>
-                        <div>img</div>
+                        <div>
+                            <img src={user.photos.small !== null ? user.photos.small : userDefaultPhoto} alt=""/>
+                        </div>
                         <div>
                             {user.followed
                                 ? <button onClick={() => props.unfollow(user.id)}>{"unfollow"}</button>
                                 : <button onClick={() => props.follow(user.id)}>{"follow"}</button>}
                         </div>
                         <div>
-                            <div>{user.fullName}</div>
+                            <div>{user.name}</div>
                             <div>{user.status}</div>
-                            <div>{user.location.country}</div>
-                            <div>{user.location.city}</div>
                         </div>
 
                     </div>

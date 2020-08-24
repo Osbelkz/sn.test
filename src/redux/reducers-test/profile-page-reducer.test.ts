@@ -6,7 +6,7 @@ import {
     ProfilePageStateType,
     profileReducer,
     updateNewPostTextAC
-} from "../profile-page-reducer";
+} from "../reducers/profile-page-reducer";
 
 
 describe("profile-page reducer test", () => {

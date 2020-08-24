@@ -5,9 +5,9 @@ import diko from "./../assets/profile_photo/diko.jpg"
 import gera from "./../assets/profile_photo/gera.jpg"
 import {uuid} from "uuidv4";
 // import {RerenderEntireTreeType} from "../index";
-import {profileReducer} from "./profile-page-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
-import {sidebarReducer} from "./sidebar-reducer";
+import {profileReducer} from "./reducers/profile-page-reducer";
+import {dialogsReducer} from "./reducers/dialogs-reducer";
+import {sidebarReducer} from "./reducers/sidebar-reducer";
 
 
 /*

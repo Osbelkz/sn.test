@@ -1,0 +1,65 @@
+
+.usersPage {
+  padding: 20px;
+}
+
+.pageButton {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.followBtn {
+
+  border-radius: 5px;
+  padding: 10px;
+  background-color: coral;
+  color: white;
+}
+
+.page {
+  padding: 3px;
+  border-radius: 3px;
+  border: #4546a5 1px solid;
+
+}
+
+.currentPage {
+  padding: 3px;
+  border-radius: 3px;
+  font-weight: 800;
+  border: #4546a5 1px solid;
+}
+
+
+.userCard {
+  display: flex;
+  margin-top: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+
+  &__authorPhoto {
+    margin-right: 10px;
+    flex: 0 0 70px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    img {
+      border-radius: 50%;
+      width: 60px;
+      margin-bottom: 5px;
+    }
+  }
+
+  &__body {
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+    }
+
+    &_text {
+      margin-top: 10px;
+    }
+  }
+}

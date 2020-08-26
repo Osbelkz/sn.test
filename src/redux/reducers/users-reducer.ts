@@ -2,6 +2,8 @@ enum USERS_ACTION_TYPE {
     FOLLOW = "FOLLOW",
     UNFOLLOW = "UNFOLLOW",
     SET_USERS = "SET_USERS",
+    SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
+    SET_TOTAL_COUNT = "SET_TOTAL_COUNT",
 }
 
 export interface UserType {
@@ -17,6 +19,9 @@ export interface UserType {
 }
 export interface UsersStateType {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 interface FollowActionType {
@@ -31,11 +36,26 @@ interface SetUsersActionType {
     type: USERS_ACTION_TYPE.SET_USERS
     users: Array<UserType>
 }
+interface SetCurrentPageActionType {
+    type: USERS_ACTION_TYPE.SET_CURRENT_PAGE
+    newCurrentPage: number
+}
+interface SetTotalCountOfUsersActionType {
+    type: USERS_ACTION_TYPE.SET_TOTAL_COUNT
+    totalCount: number
+}
 
-export type UsersActionTypes = FollowActionType | UnfollowActionType | SetUsersActionType
+export type UsersActionTypes = FollowActionType
+    | UnfollowActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalCountOfUsersActionType
 
 let initialState: UsersStateType = {
-    users: []
+    users: [],
+    pageSize: 10,
+    totalUsersCount: 0,
+    currentPage: 2
 }
 
 export const usersReducer = (state = initialState, action: UsersActionTypes) => {
@@ -57,7 +77,14 @@ export const usersReducer = (state = initialState, action: UsersActionTypes) => 
             }
         }
         case USERS_ACTION_TYPE.SET_USERS: {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
+        }
+
+        case USERS_ACTION_TYPE.SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.newCurrentPage}
+        }
+        case USERS_ACTION_TYPE.SET_TOTAL_COUNT: {
+            return {...state, totalUsersCount: action.totalCount}
         }
         default:
             return state;
@@ -72,4 +99,10 @@ export const unfollowAC = (userId: string): UnfollowActionType => {
 }
 export const setUsersAC = (users: Array<UserType>): SetUsersActionType => {
     return {type: USERS_ACTION_TYPE.SET_USERS, users}
+}
+export const setCurrentPageAC = (newCurrentPage: number): SetCurrentPageActionType => {
+    return {type: USERS_ACTION_TYPE.SET_CURRENT_PAGE, newCurrentPage}
+}
+export const setTotalCountUsersAC = (totalCount: number): SetTotalCountOfUsersActionType => {
+    return {type: USERS_ACTION_TYPE.SET_TOTAL_COUNT, totalCount }
 }

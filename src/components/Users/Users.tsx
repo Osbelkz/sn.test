@@ -1,61 +1,82 @@
 import React from "react";
 import Wrapper from "../Wrapper/Wrapper";
 import userDefaultPhoto from "../../assets/userDefaultPhoto.png";
-import axios from "axios";
-import {UsersContainerPropsType} from "./UsersContainer";
 import classes from "./Users.module.scss";
+import {UserType} from "../../redux/reducers/users-reducer";
+import { Preloader } from "../UI/Preloader/Preloader";
+import { NavLink } from "react-router-dom";
+import {followAPI} from "../../api/api";
 
 
-type PropsType = UsersContainerPropsType
+type UsersTypes = {
+    totalUsersCount: number;
+    pageSize: number;
+    currentPage: number;
+    onPageNumberChanged: (pageNumber: number) => void;
+    users: UserType[];
+    follow: (userId: string) => void;
+    unfollow: (userId: string) => void;
+    isFetching: boolean
+    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
+    followingInProgress: Array<string>
+}
 
-class Users extends React.Component<PropsType> {
+function Users(props: UsersTypes) {
 
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCountOfUsers(response.data.totalCount)
-            })
+    let pages = [];
+
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    onPageNumberChange(pageNumber: number) {
-        this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-
-    render() {
-
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-
-        let pages = [];
-
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-
-        return <Wrapper>
+    return (
+        <Wrapper>
             <div className={classes.usersPage}>
                 <div className={classes.pageButton}>
                     {pages.map(p => {
-                        return <div onClick={() => this.onPageNumberChange(p)}
-                                     className={this.props.currentPage === p ? classes.currentPage : classes.page}>
+                        return <div onClick={() => props.onPageNumberChanged(p)}
+                                    className={props.currentPage === p ? classes.currentPage : classes.page}>
                             {p}
                         </div>
                     })}
                 </div>
-                <div>
-                    {this.props.users.map(user => (
+                {props.isFetching
+                    ? <Preloader />
+                    : <div>
+                    {props.users.map(user => (
                         <div className={classes.userCard} key={user.id}>
                             <div className={classes.userCard__authorPhoto}>
-                                <img src={user.photos.small !== null ? user.photos.small : userDefaultPhoto} alt=""/>
+                                <NavLink to={"/profile/" + user.id}>
+                                    <img src={user.photos.small !== null ? user.photos.small : userDefaultPhoto} alt=""/>
+                                </NavLink>
                                 <div>
                                     {user.followed
-                                        ? <button className={classes.followBtn} onClick={() => this.props.unfollow(user.id)}>{"unfollow"}</button>
-                                        : <button className={classes.followBtn} onClick={() => this.props.follow(user.id)}>{"follow"}</button>}
+                                        ? <button className={classes.followBtn}
+                                                  disabled={props.followingInProgress.some(id=>id === user.id)}
+                                                  onClick={() => {
+                                                      props.toggleFollowingProgress(true, user.id)
+                                                      followAPI.follow(user.id)
+                                                          .then((resultCode: number) => {
+                                                              if (resultCode === 0) {
+                                                                  props.unfollow(user.id)
+                                                              }
+                                                              props.toggleFollowingProgress(false, user.id)
+                                                          })
+                                                  }}>{"unfollow"}</button>
+                                        : <button className={classes.followBtn}
+                                                  disabled={props.followingInProgress.some(id=>id === user.id)}
+                                                  onClick={() => {
+                                                      props.toggleFollowingProgress(true, user.id)
+                                                      followAPI.unfollow(user.id)
+                                                          .then(resultCode => {
+                                                              if (resultCode === 0) {
+                                                                  props.follow(user.id)
+                                                              }
+                                                              props.toggleFollowingProgress(false, user.id)
+                                                          })
+                                                  }}>{"follow"}</button>}
                                 </div>
                             </div>
                             <div className={classes.userCard__body}>
@@ -69,13 +90,11 @@ class Users extends React.Component<PropsType> {
                     <div className={classes.post}>
 
 
-
-
                     </div>
-                </div>
+                </div>}
             </div>
         </Wrapper>
-    }
+    )
 }
 
-export default Users
+export default Users;

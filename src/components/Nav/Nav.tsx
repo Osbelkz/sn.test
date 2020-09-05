@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import classes from './Nav.module.scss'
 import {NavLink} from "react-router-dom";
 import Chat from './../../assets/nav/Chat-Outline.svg'
@@ -8,6 +8,10 @@ import News from './../../assets/nav/Documents-Outline.svg'
 import Settings from './../../assets/nav/Setting-Outline.svg'
 import Users from './../../assets/nav/Profile-GroupFriend-Outline.svg'
 import {uuid} from "uuidv4";
+import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {AuthStateType, setAuthUserData} from "../../redux/reducers/auth-reducer";
+import { StoreType } from "../../redux/redux-store";
 
 const Nav = () => {
 
@@ -27,9 +31,27 @@ const Nav = () => {
         {id: uuid(), pathTo: '/settings', icon: Settings, navName: 'SETTINGS'},
     ]
 
+    let dispatch = useDispatch()
+    let {isAuth, login} = useSelector<StoreType, AuthStateType>(state => state.auth)
+
+    useEffect(()=> {
+        if (!isAuth) {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+                withCredentials: true
+            })
+                .then(response => {
+                    if (response.data.resultCode === 0)
+                        dispatch(setAuthUserData(response.data.data))
+                })
+        }
+    })
 
     return (
         <nav className={classes.nav}>
+            <div className={classes.loginBlock}>
+                {isAuth ? login : <NavLink to={"/login"} >Login</NavLink>}
+            </div>
+
             <div className={classes.nav__items}>
                 {navItems.map(navItem => (
                     <NavLink

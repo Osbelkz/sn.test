@@ -15,7 +15,7 @@ function Dialogs(props: PropsType) {
                 <DialogItems dialogs={props.state.dialogs}/>
                 <Messages messages={props.state.messages}
                           newMessageText={props.newMessageText}
-                          onChangeMessageText={props.onChangeMessageText}
+                          onChangeMessageText={props.updateNewMessageText}
                           addMessage={props.addMessage}
                 />
             </div>

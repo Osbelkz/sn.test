@@ -5,6 +5,7 @@ enum PROFILE_PAGE_ACTION_TYPE {
     UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
     ADD_LIKE = "ADD-LIKE",
     DELETE_POST = "DELETE_POST",
+    SET_USER_PROFILE = "SET_USER_PROFILE",
 }
 
 export interface PostType {
@@ -12,25 +13,59 @@ export interface PostType {
     message: string
     likeCounter: number
 }
+
+export interface ProfileType {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    aboutMe: string
+    fullName: string
+    contacts: {
+        github: string | null
+        vk: string | null
+        facebook: string | null
+        instagram: string | null
+        twitter: string | null
+        website: string | null
+        youtube: string | null
+        mainLink: string | null
+    }
+    photos: {
+        small: string | null
+        large: string | null
+    }
+
+
+}
+
 export interface ProfilePageStateType {
     posts: Array<PostType>
     newPostText: string
+    profile: ProfileType | null
 }
 
 interface AddPostActionType {
     type: PROFILE_PAGE_ACTION_TYPE.ADD_POST
 }
+
 interface UpdateNewPostTextActionType {
     type: PROFILE_PAGE_ACTION_TYPE.UPDATE_NEW_POST_TEXT
     newPostText: string
 }
+
 interface AddLikeActionType {
     type: PROFILE_PAGE_ACTION_TYPE.ADD_LIKE
     postId: string
 }
+
 interface DeletePostActionType {
     type: PROFILE_PAGE_ACTION_TYPE.DELETE_POST
     postId: string
+}
+
+interface SetUserProfileActionType {
+    type: PROFILE_PAGE_ACTION_TYPE.SET_USER_PROFILE
+    profile: ProfileType
 }
 
 export type ProfilePageActionTypes =
@@ -38,13 +73,36 @@ export type ProfilePageActionTypes =
     | UpdateNewPostTextActionType
     | AddLikeActionType
     | DeletePostActionType
+    | SetUserProfileActionType
 
 let initialState: ProfilePageStateType = {
     posts: [
         {id: uuid(), message: "It's my first post", likeCounter: 333},
         {id: uuid(), message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. ", likeCounter: 356}
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
+    // profile: {
+    //     "aboutMe": "я круто чувак 1001%",
+    //     "contacts": {
+    //         "facebook": "facebook.com",
+    //         "website": null,
+    //         "vk": "vk.com/dimych",
+    //         "twitter": "https://twitter.com/@sdf",
+    //         "instagram": "instagra.com/sds",
+    //         "youtube": null,
+    //         "github": "github.com",
+    //         "mainLink": null
+    //     },
+    //     "lookingForAJob": true,
+    //     "lookingForAJobDescription": "не ищу, а дурачусь",
+    //     "fullName": "samurai dimych",
+    //     "userId": 2,
+    //     "photos": {
+    //         "small": "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
+    //         "large": "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
+    //     }
+    // }
 }
 
 export const profileReducer = (
@@ -98,21 +156,30 @@ export const profileReducer = (
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.postId)
             }
+        case PROFILE_PAGE_ACTION_TYPE.SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
+            }
+        }
         default:
             return state;
     }
 }
 
 
-export const addPostAC = (): AddPostActionType => {
+export const addPost = (): AddPostActionType => {
     return {type: PROFILE_PAGE_ACTION_TYPE.ADD_POST};
 }
-export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => {
+export const updateNewPostText = (text: string): UpdateNewPostTextActionType => {
     return {type: PROFILE_PAGE_ACTION_TYPE.UPDATE_NEW_POST_TEXT, newPostText: text};
 }
-export const addLikeAC = (postId: string): AddLikeActionType => {
+export const addLike = (postId: string): AddLikeActionType => {
     return {type: PROFILE_PAGE_ACTION_TYPE.ADD_LIKE, postId: postId};
 }
-export const deletePostAC = (postId: string): DeletePostActionType => {
+export const deletePost = (postId: string): DeletePostActionType => {
     return {type: PROFILE_PAGE_ACTION_TYPE.DELETE_POST, postId: postId};
+}
+export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => {
+    return {type: PROFILE_PAGE_ACTION_TYPE.SET_USER_PROFILE, profile};
 }

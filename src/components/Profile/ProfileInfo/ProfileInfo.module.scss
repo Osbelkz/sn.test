@@ -1,11 +1,27 @@
 
 .profile_info {
   max-width: 100%;
-  &__img {
+  &__bg_img {
     border-radius: 5px;
     height: 200px;
     display: block;
     max-width: 100%;
     background: url(https://avatars.mds.yandex.net/get-pdb/1931145/0de97ef4-453a-4e9f-a1c3-20044af208ba/s1200?webp=false) 0 0/cover no-repeat;
+  }
+  &__photo {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: -100px;
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  &__description {
+    text-align: center;
   }
 }

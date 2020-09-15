@@ -7,6 +7,7 @@ import {StoreType} from "../../redux/redux-store";
 let mapStateToProps = (state: StoreType) => {
     return {
         state: state.dialogsPage,
+        isAuth: state.auth.isAuth,
         newMessageText: state.dialogsPage.newMessageText
     }
 }

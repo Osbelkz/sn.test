@@ -8,10 +8,10 @@ import News from './../../assets/nav/Documents-Outline.svg'
 import Settings from './../../assets/nav/Setting-Outline.svg'
 import Users from './../../assets/nav/Profile-GroupFriend-Outline.svg'
 import {uuid} from "uuidv4";
-import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {AuthStateType, setAuthUserData} from "../../redux/reducers/auth-reducer";
+import {AuthStateType, getAuthUserData} from "../../redux/reducers/auth-reducer";
 import { StoreType } from "../../redux/redux-store";
+
 
 const Nav = () => {
 
@@ -36,15 +36,9 @@ const Nav = () => {
 
     useEffect(()=> {
         if (!isAuth) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-                withCredentials: true
-            })
-                .then(response => {
-                    if (response.data.resultCode === 0)
-                        dispatch(setAuthUserData(response.data.data))
-                })
+            dispatch(getAuthUserData())
         }
-    })
+    }, [])
 
     return (
         <nav className={classes.nav}>

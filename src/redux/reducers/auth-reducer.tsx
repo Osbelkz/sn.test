@@ -1,3 +1,6 @@
+import {DispatchType} from "../types";
+import {authAPI} from "../../api/api";
+
 enum AUTH_ACTION_TYPE {
     SET_USER_DATA = "SET_USER_DATA",
 }
@@ -41,4 +44,14 @@ export const authReducer = (state = initialState, action: AuthActionTypes) => {
 
 export const setAuthUserData = (payload: AuthStateType): SetUserDataActionType => {
     return {type: AUTH_ACTION_TYPE.SET_USER_DATA, payload}
+}
+
+//THUNKS
+
+export const getAuthUserData = () => (dispatch: DispatchType) => {
+    authAPI.getAuthUserData()
+        .then(res => {
+            if (res.data.resultCode === 0)
+                dispatch(setAuthUserData(res.data.data))
+        })
 }

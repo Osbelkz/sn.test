@@ -1,4 +1,6 @@
-import {act} from "react-dom/test-utils";
+
+import {usersAPI} from "../../api/api";
+import {DispatchType} from "../types";
 
 enum USERS_ACTION_TYPE {
     FOLLOW = "FOLLOW",
@@ -127,10 +129,10 @@ export const usersReducer = (state = initialState, action: UsersActionTypes) => 
     }
 }
 
-export const follow = (userId: string): FollowActionType => {
+export const setFollow = (userId: string): FollowActionType => {
     return {type: USERS_ACTION_TYPE.FOLLOW, userId}
 }
-export const unfollow = (userId: string): UnfollowActionType => {
+export const setUnfollow = (userId: string): UnfollowActionType => {
     return {type: USERS_ACTION_TYPE.UNFOLLOW, userId}
 }
 export const setUsers = (users: Array<UserType>): SetUsersActionType => {
@@ -147,4 +149,42 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionTyp
 }
 export const toggleFollowingProgress = (isFetching: boolean,  userId: string): FollowingIsFetchingActionType => {
     return {type: USERS_ACTION_TYPE.TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}
+}
+
+
+//THUNKS
+export const getUsers  = (currentPage: number, pageSize: number) => (dispatch: DispatchType) => {
+
+    dispatch(toggleIsFetching(true))
+
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalCountOfUsers(data.totalCount))
+        });
+}
+
+export const follow  = (userId: string) => (dispatch: DispatchType) => {
+
+    dispatch(toggleFollowingProgress(true, userId))
+    usersAPI.follow(userId)
+        .then((resultCode: number) => {
+            if (resultCode === 0) {
+                dispatch(setUnfollow(userId))
+            }
+            dispatch(toggleFollowingProgress(true, userId))
+        })
+}
+
+export const unfollow  = (userId: string) => (dispatch: DispatchType) => {
+
+    dispatch(toggleFollowingProgress(true, userId))
+    usersAPI.unfollow(userId)
+        .then(resultCode => {
+            if (resultCode === 0) {
+                dispatch(setFollow(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+        })
 }

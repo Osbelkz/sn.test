@@ -1,4 +1,6 @@
 import {uuid} from "uuidv4";
+import {DispatchType} from "../types";
+import {profileAPI} from "../../api/api";
 
 enum PROFILE_PAGE_ACTION_TYPE {
     ADD_POST = "ADD-POST",
@@ -34,8 +36,6 @@ export interface ProfileType {
         small: string | null
         large: string | null
     }
-
-
 }
 
 export interface ProfilePageStateType {
@@ -82,27 +82,6 @@ let initialState: ProfilePageStateType = {
     ],
     newPostText: '',
     profile: null
-    // profile: {
-    //     "aboutMe": "я круто чувак 1001%",
-    //     "contacts": {
-    //         "facebook": "facebook.com",
-    //         "website": null,
-    //         "vk": "vk.com/dimych",
-    //         "twitter": "https://twitter.com/@sdf",
-    //         "instagram": "instagra.com/sds",
-    //         "youtube": null,
-    //         "github": "github.com",
-    //         "mainLink": null
-    //     },
-    //     "lookingForAJob": true,
-    //     "lookingForAJobDescription": "не ищу, а дурачусь",
-    //     "fullName": "samurai dimych",
-    //     "userId": 2,
-    //     "photos": {
-    //         "small": "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
-    //         "large": "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
-    //     }
-    // }
 }
 
 export const profileReducer = (
@@ -182,4 +161,11 @@ export const deletePost = (postId: string): DeletePostActionType => {
 }
 export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => {
     return {type: PROFILE_PAGE_ACTION_TYPE.SET_USER_PROFILE, profile};
+}
+
+//THUNKS
+
+export const getUserProfile = (userId: string) => (dispatch: DispatchType) => {
+    profileAPI.getProfile(userId)
+        .then(data => dispatch(setUserProfile(data)))
 }

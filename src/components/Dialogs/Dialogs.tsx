@@ -4,11 +4,16 @@ import Wrapper from "../Wrapper/Wrapper";
 import {DialogItems} from "./DIalogItems/DialogItems";
 import {Messages} from "./Messages/Messages";
 import {DialogsContainerPropsType} from "./DialogsContainer";
+import { Redirect } from "react-router-dom";
 
 
 type PropsType = DialogsContainerPropsType
 
+
 function Dialogs(props: PropsType) {
+
+    if (!props.isAuth) return <Redirect to={"/login"}/>
+
     return (
         <Wrapper>
             <div className={classes.dialogs}>

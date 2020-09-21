@@ -19,7 +19,6 @@ type UsersTypes = {
 }
 
 function Users(props: UsersTypes) {
-
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
     let pages = [];
@@ -60,6 +59,7 @@ function Users(props: UsersTypes) {
                             </div>
                             <div className={classes.userCard__body}>
 
+                                <div>{user.id}</div>
                                 <div className={classes.userCard__body_header}>{user.name}</div>
                                 <div className={classes.userCard__body_text}>{user.status}</div>
 

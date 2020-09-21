@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.scss';
-import Nav from "./components/Nav/Nav";
 import {Route, Switch} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -10,6 +9,7 @@ import SidebarContainer from "./components/Sidebar/SidebarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import LoginPage from "./components/Login/Login";
+import NavContainer from "./components/Nav/NavContainer";
 
 type AppPropsType = {}
 
@@ -17,7 +17,7 @@ function App(props: AppPropsType) {
 
     return (
         <div className="app-wrapper">
-            <Nav/>
+            <NavContainer/>
             <div className='app-wrapper-content'>
                 <Switch>
                     <Route path='/profile/:userId?' component={ProfileContainer}/>

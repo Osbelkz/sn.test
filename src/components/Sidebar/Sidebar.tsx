@@ -15,9 +15,6 @@ const Sidebar = (props: PropsType) => {
                 borderRadius: '50%',
                 border: 'lavender 2px solid'
             }}/>
-            {/*            <div className={classes.profile__photo}>
-                <img src={name.img} alt=""/>
-            </div>*/}
             <div className={classes.profile__name}>{name.name}</div>
         </div>)
     )

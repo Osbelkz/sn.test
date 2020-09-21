@@ -3,9 +3,12 @@ import classes from './ProfileInfo.module.scss'
 import {ProfileType} from "../../../redux/reducers/profile-page-reducer";
 import {Preloader} from "../../UI/Preloader/Preloader";
 import userDefaultPhoto from "../../../assets/userDefaultPhoto.png";
+import ProfileStatus from "./ProfileStatus";
 
 export type PropsType = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (newStatus: string) => void
 }
 
 const ProfileInfo = (props: PropsType) => {
@@ -19,6 +22,7 @@ const ProfileInfo = (props: PropsType) => {
                 <img src={props.profile.photos.large ? props.profile.photos.large : userDefaultPhoto} alt=""/>
             </div>
             <div className={classes.profile_info__description}>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 <h3>{props.profile.fullName}</h3>
                 <p>{props.profile.aboutMe}</p>
                 <p>looking for a job: {props.profile.lookingForAJob ? "yes" : "no"}</p>

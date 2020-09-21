@@ -6,6 +6,7 @@ import {usersReducer} from "./reducers/users-reducer";
 import {DispatchActionType} from "./types";
 import {authReducer} from "./reducers/auth-reducer";
 import thunkMiddleware from "redux-thunk"
+import {reducer as formReducer} from "redux-form";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
@@ -13,6 +14,7 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    form: formReducer,
 })
 
 export type StoreType = ReturnType<typeof reducers>

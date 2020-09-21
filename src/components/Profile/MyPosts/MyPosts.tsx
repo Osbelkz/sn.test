@@ -1,10 +1,18 @@
 import classes from './MyPosts.module.scss'
 import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
-import {MyPostsContainerPropsType} from "./MyPostsContainer";
+
+import {PostType} from "../../../redux/reducers/profile-page-reducer";
 
 
-type PropsType = MyPostsContainerPropsType
+type PropsType = {
+    posts: Array<PostType>
+    newPostText: string
+    addPost: () => void
+    addLike: (postId: string) => void
+    deletePost: (postId: string) => void
+    updateNewPostText: (newPostText: string) => void
+}
 
 function MyPosts(props: PropsType) {
 

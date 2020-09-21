@@ -2,7 +2,7 @@ import React from "react";
 import {
     updateNewPostText, addPost, addLike, deletePost
 } from "../../../redux/reducers/profile-page-reducer";
-import {connect, ConnectedProps} from "react-redux";
+import {connect} from "react-redux";
 import {StoreType} from "../../../redux/redux-store";
 import MyPosts from "./MyPosts";
 
@@ -31,8 +31,6 @@ const mapStateToProps = (state: StoreType) => {
 //     }
 // }
 
-const MyPostsContainer = connect(mapStateToProps, {updateNewPostText, addPost, addLike, deletePost})
+const MyPostsContainer = connect(mapStateToProps, {updateNewPostText, addPost, addLike, deletePost})(MyPosts)
 
-export type MyPostsContainerPropsType = ConnectedProps<typeof MyPostsContainer>
-
-export default MyPostsContainer(MyPosts);
+export default MyPostsContainer;

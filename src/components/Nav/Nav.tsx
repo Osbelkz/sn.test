@@ -8,12 +8,14 @@ import News from './../../assets/nav/Documents-Outline.svg'
 import Settings from './../../assets/nav/Setting-Outline.svg'
 import Users from './../../assets/nav/Profile-GroupFriend-Outline.svg'
 import {uuid} from "uuidv4";
-import {useDispatch, useSelector} from "react-redux";
-import {AuthStateType, getAuthUserData} from "../../redux/reducers/auth-reducer";
-import { StoreType } from "../../redux/redux-store";
 
 
-const Nav = () => {
+type PropsType = {
+    isAuth: boolean
+    login: string | null
+}
+
+const Nav = (props: PropsType) => {
 
     type NavItemsType = {
         id: string
@@ -31,19 +33,10 @@ const Nav = () => {
         {id: uuid(), pathTo: '/settings', icon: Settings, navName: 'SETTINGS'},
     ]
 
-    let dispatch = useDispatch()
-    let {isAuth, login} = useSelector<StoreType, AuthStateType>(state => state.auth)
-
-    useEffect(()=> {
-        if (!isAuth) {
-            dispatch(getAuthUserData())
-        }
-    }, [])
-
     return (
         <nav className={classes.nav}>
             <div className={classes.loginBlock}>
-                {isAuth ? login : <NavLink to={"/login"} >Login</NavLink>}
+                {props.isAuth ? props.login : <NavLink to={"/login"} >Login</NavLink>}
             </div>
 
             <div className={classes.nav__items}>

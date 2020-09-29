@@ -13,6 +13,7 @@ import {uuid} from "uuidv4";
 type PropsType = {
     isAuth: boolean
     login: string | null
+    logout: ()=>void
 }
 
 const Nav = (props: PropsType) => {
@@ -36,7 +37,9 @@ const Nav = (props: PropsType) => {
     return (
         <nav className={classes.nav}>
             <div className={classes.loginBlock}>
-                {props.isAuth ? props.login : <NavLink to={"/login"} >Login</NavLink>}
+                {props.isAuth
+                    ? <div>{props.login} - <button onClick={props.logout}>Logout</button> </div>
+                    : <NavLink to={"/login"} >Login</NavLink>}
             </div>
 
             <div className={classes.nav__items}>

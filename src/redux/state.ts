@@ -7,7 +7,6 @@ import {uuid} from "uuidv4";
 // import {RerenderEntireTreeType} from "../index";
 import {profileReducer} from "./reducers/profile-page-reducer";
 import {dialogsReducer} from "./reducers/dialogs-reducer";
-import {sidebarReducer} from "./reducers/sidebar-reducer";
 
 
 /*

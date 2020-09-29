@@ -1,45 +1,30 @@
 import Message from "./Message/Message";
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React from "react";
 import classes from "./Messages.module.scss";
 import {MessagesType} from "../../../redux/reducers/dialogs-reducer";
-
+import AddMessageFormRedux, { AddMessageFormType } from "./AddMessageForm/AddMessageForm";
 
 type MessagesPropsType = {
     messages: Array<MessagesType>
-    newMessageText: string
-    onChangeMessageText: (newMessageText: string) => void
-    addMessage: () => void
+    addMessage: (messageText: string) => void
 }
 
 export function Messages(props: MessagesPropsType) {
 
     let messagesElements = props.messages.map(m => <Message message={m} key={m.id}/>)
 
-    function onChangeInputText(e: ChangeEvent<HTMLInputElement>): void {
-        props.onChangeMessageText(e.currentTarget.value)
-    }
+    // function onPressEnter(e: KeyboardEvent<HTMLInputElement>) {
+    //     if (e.key === "Enter") {
+    //     }
+    // }
 
-    function onAddMessage(): void {
-        if (props.newMessageText) {
-            props.addMessage()
-        }
-    }
-
-    function onPressEnter(e: KeyboardEvent<HTMLInputElement>) {
-        if (e.key==="Enter") {
-            onAddMessage()
-        }
+    const addNewMessage = (values: AddMessageFormType) => {
+        props.addMessage(values.newMessageBody)
     }
 
     return <div className={classes.messages}>
         {messagesElements}
-        <div className={classes.messages__input}>
-            <input onChange={onChangeInputText}
-                   onKeyPress={onPressEnter}
-                   value={props.newMessageText}
-                   placeholder={"type a message..."}
-                   type="text"/>
-            <button onClick={onAddMessage}>Send</button>
-        </div>
+        <AddMessageFormRedux onSubmit={addNewMessage}/>
     </div>;
 }
+

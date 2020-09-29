@@ -1,0 +1,23 @@
+.formControl {
+  > input, textarea {
+    background-color: aliceblue;
+    font-size: medium;
+    border: 2px solid #4546a5;
+    min-width: 100%;
+    color: #333333;
+    line-height: 1.2;
+    display: block;
+    height: 55px;
+    padding: 0 7px 0 43px;
+    border-radius: 10px;
+  }
+
+}
+
+.formControl .error {
+  border: 3px solid red;
+}
+
+.errorText {
+  color: red;
+}

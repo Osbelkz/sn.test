@@ -2,7 +2,6 @@ import {uuid} from "uuidv4";
 
 enum DIALOGS_ACTION_TYPE {
     ADD_MESSAGE = "ADD-MESSAGE",
-    UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
 }
 
 export interface MessagesType {
@@ -16,18 +15,14 @@ export interface DialogsType {
 export interface DialogsPageStateType {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
-    newMessageText: string
 }
 
 interface AddMessageActionType {
     type: DIALOGS_ACTION_TYPE.ADD_MESSAGE
-}
-interface UpdateNewMessageTextActionType {
-    type: DIALOGS_ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT
-    newMessageText: string
+    message: string
 }
 
-export type DialogsActionTypes = AddMessageActionType | UpdateNewMessageTextActionType
+export type DialogsActionTypes = AddMessageActionType
 
 let initialState: DialogsPageStateType = {
     dialogs: [
@@ -45,10 +40,9 @@ let initialState: DialogsPageStateType = {
         },
         {id: uuid(), message: "Yo"}
     ],
-    newMessageText: 'hi'
 }
 
-export const dialogsReducer = (state=initialState, action: DialogsActionTypes) => {
+export const dialogsReducer = (state=initialState, action: DialogsActionTypes): DialogsPageStateType  => {
 
     // const actionObj: { [key: string]: any  } = {
     //     [ACTION_TYPE.ADD_MESSAGE]: {
@@ -64,20 +58,13 @@ export const dialogsReducer = (state=initialState, action: DialogsActionTypes) =
     // return actionObj[action.type] && actionObj[action.type] || state
 
     switch (action.type) {
-        case DIALOGS_ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT: {
-            return {
-                ...state,
-                newMessageText: action.newMessageText
-            }
-        }
         case DIALOGS_ACTION_TYPE.ADD_MESSAGE: {
             return {
                 ...state,
                 messages: [
                     ...state.messages,
-                    {id: uuid(), message: state.newMessageText}
+                    {id: uuid(), message: action.message}
                     ],
-                newMessageText: ""
             }
         }
         default:
@@ -86,9 +73,6 @@ export const dialogsReducer = (state=initialState, action: DialogsActionTypes) =
 }
 
 
-export const addMessage = (): AddMessageActionType => {
-    return {type: DIALOGS_ACTION_TYPE.ADD_MESSAGE}
-}
-export const updateNewMessageText = (newMessageText: string): UpdateNewMessageTextActionType => {
-   return  {type: DIALOGS_ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT, newMessageText: newMessageText}
+export const addMessage = (message: string): AddMessageActionType => {
+    return {type: DIALOGS_ACTION_TYPE.ADD_MESSAGE, message}
 }

@@ -6,7 +6,7 @@ import {
     unfollow,
     UserType
 } from "../../redux/reducers/users-reducer";
-import {StoreType} from "../../redux/redux-store";
+import {RootStateType} from "../../redux/redux-store";
 import Users from "./Users";
 
 type PropsType = {
@@ -45,7 +45,7 @@ class UsersContainer extends React.Component<PropsType> {
 }
 
 
-let mapStateToProps = (state: StoreType) => {
+let mapStateToProps = (state: RootStateType) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,

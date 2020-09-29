@@ -5,7 +5,6 @@ import {Dispatch} from "redux";
 
 enum PROFILE_PAGE_ACTION_TYPE {
     ADD_POST = "ADD-POST",
-    UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
     ADD_LIKE = "ADD-LIKE",
     DELETE_POST = "DELETE_POST",
     SET_USER_PROFILE = "SET_USER_PROFILE",
@@ -42,18 +41,13 @@ export interface ProfileType {
 
 export interface ProfilePageStateType {
     posts: Array<PostType>
-    newPostText: string
     profile: ProfileType | null
     status: string
 }
 
 interface AddPostActionType {
     type: PROFILE_PAGE_ACTION_TYPE.ADD_POST
-}
-
-interface UpdateNewPostTextActionType {
-    type: PROFILE_PAGE_ACTION_TYPE.UPDATE_NEW_POST_TEXT
-    newPostText: string
+    message: string
 }
 
 interface AddLikeActionType {
@@ -78,7 +72,6 @@ interface SetUserStatusActionType {
 
 export type ProfilePageActionTypes =
     AddPostActionType
-    | UpdateNewPostTextActionType
     | AddLikeActionType
     | DeletePostActionType
     | SetUserProfileActionType
@@ -89,7 +82,6 @@ let initialState: ProfilePageStateType = {
         {id: uuid(), message: "It's my first post", likeCounter: 333},
         {id: uuid(), message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. ", likeCounter: 356}
     ],
-    newPostText: '',
     profile: null,
     status: ""
 }
@@ -122,14 +114,8 @@ export const profileReducer = (
                 ...state,
                 posts: [
                     ...state.posts,
-                    {id: uuid(), message: state.newPostText, likeCounter: 0}
+                    {id: uuid(), message: action.message, likeCounter: 0}
                 ],
-                newPostText: ""
-            }
-        case PROFILE_PAGE_ACTION_TYPE.UPDATE_NEW_POST_TEXT :
-            return {
-                ...state,
-                newPostText: action.newPostText
             }
         case PROFILE_PAGE_ACTION_TYPE.ADD_LIKE:
             return {
@@ -163,11 +149,8 @@ export const profileReducer = (
 }
 
 
-export const addPost = (): AddPostActionType => {
-    return {type: PROFILE_PAGE_ACTION_TYPE.ADD_POST};
-}
-export const updateNewPostText = (text: string): UpdateNewPostTextActionType => {
-    return {type: PROFILE_PAGE_ACTION_TYPE.UPDATE_NEW_POST_TEXT, newPostText: text};
+export const addPost = (message: string): AddPostActionType => {
+    return {type: PROFILE_PAGE_ACTION_TYPE.ADD_POST, message};
 }
 export const addLike = (postId: string): AddLikeActionType => {
     return {type: PROFILE_PAGE_ACTION_TYPE.ADD_LIKE, postId: postId};
@@ -184,19 +167,19 @@ export const setUserStatus = (status: string): SetUserStatusActionType => {
 
 //THUNKS
 
-export const getUserProfile = (userId: string) => (dispatch: DispatchType) => {
+export const getUserProfileTC = (userId: string) => (dispatch: DispatchType) => {
     profileAPI.getProfile(userId)
         .then(data => dispatch(setUserProfile(data)))
 }
 
-export const getStatus = (userId: string) => (dispatch: Dispatch) => {
+export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(res => {
             dispatch(setUserStatus(res.data))
         })
 }
 
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
         .then(res => {
             if (res.data.resultCode === 0) {

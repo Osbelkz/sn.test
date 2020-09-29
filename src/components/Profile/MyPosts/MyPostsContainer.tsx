@@ -1,36 +1,18 @@
 import React from "react";
 import {
-    updateNewPostText, addPost, addLike, deletePost
+    addPost, addLike, deletePost
 } from "../../../redux/reducers/profile-page-reducer";
 import {connect} from "react-redux";
-import {StoreType} from "../../../redux/redux-store";
+import {RootStateType} from "../../../redux/redux-store";
 import MyPosts from "./MyPosts";
 
 
-const mapStateToProps = (state: StoreType) => {
+const mapStateToProps = (state: RootStateType) => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
     }
 }
 
-// const mapDispatchToProps = (dispatch: DispatchType) => {
-//     return {
-//         updateNewPostText: (newPostText: string): void => {
-//             dispatch(updateNewPostTextAC(newPostText))
-//         },
-//         addPost: (): void => {
-//             dispatch(addPostAC())
-//         },
-//         addLike: (postId: string): void => {
-//             dispatch(addLikeAC(postId))
-//         },
-//         deletePost: (postId: string): void => {
-//             dispatch(deletePostAC(postId))
-//         }
-//     }
-// }
-
-const MyPostsContainer = connect(mapStateToProps, {updateNewPostText, addPost, addLike, deletePost})(MyPosts)
+const MyPostsContainer = connect(mapStateToProps, {addPost, addLike, deletePost})(MyPosts)
 
 export default MyPostsContainer;

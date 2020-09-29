@@ -44,5 +44,11 @@ export const profileAPI = {
 export const authAPI = {
     getAuthUserData() {
         return auth.get(`auth/me/`);
+    },
+    login(email: string, password: string, rememberMe:boolean = false) {
+        return auth.post(`auth/login`, {email, password, rememberMe});
+    },
+    logout() {
+        return auth.delete(`auth/login` );
     }
 }

@@ -2,9 +2,9 @@ import React from "react";
 import Wrapper from "../Wrapper/Wrapper";
 import userDefaultPhoto from "../../assets/userDefaultPhoto.png";
 import classes from "./Users.module.scss";
-import {UserType} from "../../redux/reducers/users-reducer";
 import { Preloader } from "../UI/Preloader/Preloader";
 import { NavLink } from "react-router-dom";
+import { UserType } from "../../types/types";
 
 type UsersTypes = {
     totalUsersCount: number
@@ -12,8 +12,8 @@ type UsersTypes = {
     currentPage: number
     onPageNumberChanged: (pageNumber: number) => void
     users: UserType[]
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    followTC: (userId: string) => void
+    unfollowTC: (userId: string) => void
     isFetching: boolean
     followingInProgress: Array<string>
 }
@@ -51,10 +51,10 @@ function Users(props: UsersTypes) {
                                     {user.followed
                                         ? <button className={classes.followBtn}
                                                   disabled={props.followingInProgress.some(id=>id === user.id)}
-                                                  onClick={() => props.follow(user.id)}>{"unfollow"}</button>
+                                                  onClick={() => props.unfollowTC(user.id)}>{"unfollow"}</button>
                                         : <button className={classes.followBtn}
                                                   disabled={props.followingInProgress.some(id=>id === user.id)}
-                                                  onClick={() => {props.unfollow(user.id)}}>{"follow"}</button>}
+                                                  onClick={() => {props.followTC(user.id)}}>{"follow"}</button>}
                                 </div>
                             </div>
                             <div className={classes.userCard__body}>

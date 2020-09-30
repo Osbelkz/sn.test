@@ -2,14 +2,10 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {
-    ProfileType,
-    getUserProfileTC,
-    updateStatusTC,
-    getStatusTC
-} from "../../redux/reducers/profile-page-reducer";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {compose} from "redux";
+import { ProfileType } from "../../types/types";
+import {getStatusTC, getUserProfileTC, updateStatusTC} from "../../redux/reducers/actions/profile-actions";
 
 
 type PathParamsType = {

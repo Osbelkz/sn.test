@@ -1,36 +1,16 @@
 import {uuid} from "uuidv4";
+import { DialogType, MessageType } from "../../types/types";
+import {ACTIONS_TYPE, DialogsActionTypes} from "./actions/dialogs-actions";
 
-enum DIALOGS_ACTION_TYPE {
-    ADD_MESSAGE = "ADD-MESSAGE",
-}
+export type DialogsPageStateType = typeof initialState
 
-export interface MessagesType {
-    id: string
-    message: string
-}
-export interface DialogsType {
-    id: string
-    name: string
-}
-export interface DialogsPageStateType {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
-}
-
-interface AddMessageActionType {
-    type: DIALOGS_ACTION_TYPE.ADD_MESSAGE
-    message: string
-}
-
-export type DialogsActionTypes = AddMessageActionType
-
-let initialState: DialogsPageStateType = {
+let initialState = {
     dialogs: [
         {id: uuid(), name: "Diko"},
         {id: uuid(), name: "Almaz"},
         {id: uuid(), name: "Erzhan"},
         {id: uuid(), name: "Banzai"}
-    ],
+    ] as DialogType[],
     messages: [
         {id: uuid(), message: "Hi"},
         {id: uuid(), message: "How are you l"},
@@ -39,32 +19,19 @@ let initialState: DialogsPageStateType = {
             message: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took "
         },
         {id: uuid(), message: "Yo"}
-    ],
+    ] as MessageType[],
 }
 
-export const dialogsReducer = (state=initialState, action: DialogsActionTypes): DialogsPageStateType  => {
-
-    // const actionObj: { [key: string]: any  } = {
-    //     [ACTION_TYPE.ADD_MESSAGE]: {
-    //         ...state,
-    //         messages: [...state.messages, {id: uuid(),
-    //             message: state.newMessageText,}]
-    //     },
-    //     [ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT]: {
-    //         ...state,
-    //         newMessageText: action.newMessageText
-    //     },
-    // }
-    // return actionObj[action.type] && actionObj[action.type] || state
+export const dialogsReducer = (state = initialState, action: DialogsActionTypes): DialogsPageStateType => {
 
     switch (action.type) {
-        case DIALOGS_ACTION_TYPE.ADD_MESSAGE: {
+        case ACTIONS_TYPE.ADD_MESSAGE: {
             return {
                 ...state,
                 messages: [
                     ...state.messages,
-                    {id: uuid(), message: action.message}
-                    ],
+                    {id: uuid(), ...action.payload}
+                ],
             }
         }
         default:
@@ -72,7 +39,16 @@ export const dialogsReducer = (state=initialState, action: DialogsActionTypes): 
     }
 }
 
+// const actionObj: { [key: string]: any  } = {
+//     [ACTION_TYPE.ADD_MESSAGE]: {
+//         ...state,
+//         messages: [...state.messages, {id: uuid(),
+//             message: state.newMessageText,}]
+//     },
+//     [ACTION_TYPE.UPDATE_NEW_MESSAGE_TEXT]: {
+//         ...state,
+//         newMessageText: action.newMessageText
+//     },
+// }
+// return actionObj[action.type] && actionObj[action.type] || state
 
-export const addMessage = (message: string): AddMessageActionType => {
-    return {type: DIALOGS_ACTION_TYPE.ADD_MESSAGE, message}
-}

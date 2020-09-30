@@ -10,9 +10,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import LoginPage from "./components/Login/Login";
 import NavContainer from "./components/Nav/NavContainer";
 
-type AppPropsType = {}
-
-function App(props: AppPropsType) {
+const App = () => {
 
     return (
         <div className="app-wrapper">

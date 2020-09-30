@@ -3,7 +3,7 @@ import classes from './Profile.module.scss'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import Wrapper from "../Wrapper/Wrapper";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileType} from "../../redux/reducers/profile-page-reducer";
+import { ProfileType } from "../../types/types";
 
 export type PropsType = {
     profile: ProfileType | null

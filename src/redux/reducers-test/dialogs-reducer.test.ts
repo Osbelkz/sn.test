@@ -1,9 +1,10 @@
-import {addMessageAC, DialogsPageStateType, dialogsReducer, updateNewMessageTextAC} from "../reducers/dialogs-reducer";
+import {dialogsReducer, DialogsPageStateType} from "../reducers/dialogs-reducer";
 import {v1} from "uuid";
+import { addMessageAC } from "../reducers/actions/dialogs-actions";
 
 describe("dialogs-page reducer test", () => {
 
-    let startState: DialogsPageStateType = {dialogs: [], messages: [], newMessageText: ''}
+    let startState: DialogsPageStateType = {dialogs: [], messages: []}
     beforeEach(() => {
         startState = {
             dialogs: [
@@ -21,30 +22,12 @@ describe("dialogs-page reducer test", () => {
                 },
                 {id: v1(), message: "Yo"}
             ],
-            newMessageText: "i'm new message text"
         }
     })
 
-    // test('correct message should be deleted from correct array', () => {
-    //
-    //     let startState: ProfilePageStateType = {
-    //         posts: [
-    //             {id: postId1, message: "It's my first post", likeCounter: 333},
-    //             {id: postId2, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. ", likeCounter: 356}
-    //         ],
-    //         newPostText: ''
-    //     }
-    //
-    //     const action = deletePostAC(postId1);
-    //
-    //     const endState = profileReducer(startState, action)
-    //
-    //     expect(endState.posts.length).toBe(1);
-    //     expect(endState.posts[0].id).toBe(postId2);
-    // });
     test('correct message should be added to correct array', () => {
 
-        const action = addMessageAC();
+        const action = addMessageAC({message:"i'm new message text"});
 
         const endState = dialogsReducer(startState, action)
 
@@ -52,13 +35,5 @@ describe("dialogs-page reducer test", () => {
         expect(endState.messages[4].id).toBeDefined();
         expect(endState.messages[4].message).toBe("i'm new message text");
     })
-    test('new message text should be changed', () => {
-
-        const action = updateNewMessageTextAC("new message text was changed");
-
-        const endState = dialogsReducer(startState, action)
-
-        expect(endState.newMessageText).toBe("new message text was changed");
-    });
 })
 

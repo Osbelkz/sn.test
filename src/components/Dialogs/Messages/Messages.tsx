@@ -1,12 +1,13 @@
 import Message from "./Message/Message";
 import React from "react";
 import classes from "./Messages.module.scss";
-import {MessagesType} from "../../../redux/reducers/dialogs-reducer";
 import AddMessageFormRedux, { AddMessageFormType } from "./AddMessageForm/AddMessageForm";
+import {AddMessagePayloadType} from "../../../redux/reducers/actions/dialogs-actions";
+import { MessageType } from "../../../types/types";
 
 type MessagesPropsType = {
-    messages: Array<MessagesType>
-    addMessage: (messageText: string) => void
+    messages: Array<MessageType>
+    addMessageAC: (payload: AddMessagePayloadType) => void
 }
 
 export function Messages(props: MessagesPropsType) {
@@ -19,7 +20,7 @@ export function Messages(props: MessagesPropsType) {
     // }
 
     const addNewMessage = (values: AddMessageFormType) => {
-        props.addMessage(values.newMessageBody)
+        props.addMessageAC({message: values.newMessageBody})
     }
 
     return <div className={classes.messages}>

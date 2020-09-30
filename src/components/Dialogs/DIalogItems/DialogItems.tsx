@@ -2,11 +2,10 @@ import React from "react";
 import classes from './DialogItems.module.scss'
 import SearchIcon from '../../../assets/Find-Outline.svg'
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogsType} from "../../../redux/reducers/dialogs-reducer";
-
+import { DialogType } from "../../../types/types";
 
 type DialogItemPropsType = {
-    dialogs: Array<DialogsType>
+    dialogs: Array<DialogType>
 }
 
 export function DialogItems(props: DialogItemPropsType) {

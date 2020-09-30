@@ -1,25 +1,25 @@
 import classes from "./Post.module.scss";
 import React from "react";
 import postPhoto from '../../../../assets/post-photo.jpg'
+import {AddLikePayloadType, DeletePostPayloadType} from "../../../../redux/reducers/actions/profile-actions";
 
 type PropsType = {
     message: string
     likeCount: number
     postId: string
-    addLike: (postId: string) => void
-    deletePost: (postId: string) => void
+    addLikeAC: (payload: AddLikePayloadType) => void
+    deletePostAC: (payload: DeletePostPayloadType) => void
 }
 
 
 function Post(props: PropsType) {
 
     const OnClickHandler = () => {
-        props.addLike(props.postId)
-        // props.dispatch(addLikeActionCreator(props.id))
+        props.addLikeAC({postId: props.postId})
     }
 
     const onDeletePost = () => {
-        props.deletePost(props.postId)
+        props.deletePostAC({postId: props.postId})
     }
 
 

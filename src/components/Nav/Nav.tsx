@@ -1,44 +1,22 @@
-import React, {useEffect} from "react";
+import React from "react";
 import classes from './Nav.module.scss'
 import {NavLink} from "react-router-dom";
-import Chat from './../../assets/nav/Chat-Outline.svg'
-import Profile from './../../assets/nav/Profile-Outline.svg'
-import Music from './../../assets/nav/Play-Outline.svg'
-import News from './../../assets/nav/Documents-Outline.svg'
-import Settings from './../../assets/nav/Setting-Outline.svg'
-import Users from './../../assets/nav/Profile-GroupFriend-Outline.svg'
-import {uuid} from "uuidv4";
-
+import {NavItemsType} from "./NavContainer";
 
 type PropsType = {
     isAuth: boolean
     login: string | null
-    logout: ()=>void
+    logoutTC: ()=>void
+    navItems: NavItemsType[]
 }
 
-const Nav = (props: PropsType) => {
-
-    type NavItemsType = {
-        id: string
-        pathTo: string
-        icon: string
-        navName: string
-    }
-
-    let navItems: Array<NavItemsType> = [
-        {id: uuid(), pathTo: '/profile', icon: Profile, navName: 'PROFILE'},
-        {id: uuid(), pathTo: '/messages', icon: Chat, navName: 'MESSAGES'},
-        {id: uuid(), pathTo: '/users', icon: Users, navName: 'USERS'},
-        {id: uuid(), pathTo: '/news', icon: News, navName: 'NEWS'},
-        {id: uuid(), pathTo: '/music', icon: Music, navName: 'MUSIC'},
-        {id: uuid(), pathTo: '/settings', icon: Settings, navName: 'SETTINGS'},
-    ]
+const Nav: React.FC<PropsType> = ({isAuth, login, logoutTC, navItems}: PropsType) => {
 
     return (
         <nav className={classes.nav}>
             <div className={classes.loginBlock}>
-                {props.isAuth
-                    ? <div>{props.login} - <button onClick={props.logout}>Logout</button> </div>
+                {isAuth
+                    ? <div>{login} - <button onClick={logoutTC}>Logout</button> </div>
                     : <NavLink to={"/login"} >Login</NavLink>}
             </div>
 

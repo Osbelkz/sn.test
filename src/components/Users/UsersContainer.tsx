@@ -1,51 +1,40 @@
 import React from "react";
 import {connect} from "react-redux";
-import {
-    follow, getUsers, setCurrentPage,
-    toggleFollowingProgress,
-    unfollow,
-    UserType
-} from "../../redux/reducers/users-reducer";
 import {RootStateType} from "../../redux/redux-store";
 import Users from "./Users";
+import { getUsersTC, unfollowTC, followTC } from "../../redux/reducers/actions/users-actions";
+import { UserType } from "../../types/types";
 
-type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    users: Array<UserType>
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    isFetching: boolean
-    followingInProgress: Array<string>
-    getUsers: (currentPage: number, pageSize: number) => void
+type PropsType = MatStateToPropsType & {
+    followTC: (userId: string) => void
+    unfollowTC: (userId: string) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
 }
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
 
     onPageNumberChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        this.props.getUsersTC(pageNumber, this.props.pageSize)
     }
 
     render() {
-        return <Users totalUsersCount={this.props.totalUsersCount}
-                      pageSize={this.props.pageSize}
-                      currentPage={this.props.currentPage}
-                      users={this.props.users}
-                      follow={this.props.follow}
-                      unfollow={this.props.unfollow}
-                      isFetching={this.props.isFetching}
-                      followingInProgress={this.props.followingInProgress}
-                      onPageNumberChanged={this.onPageNumberChanged}
-        />
+        return <Users {...this.props} onPageNumberChanged={this.onPageNumberChanged}/>
     }
 }
 
+type MatStateToPropsType = {
+    users: UserType[]
+    pageSize: number
+    totalUsersCount:number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: string[]
+}
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: RootStateType): MatStateToPropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -69,7 +58,6 @@ let mapStateToProps = (state: RootStateType) => {
 
 export default connect(mapStateToProps,
     {
-        follow, unfollow,
-        toggleFollowingProgress, getUsers
+        followTC, unfollowTC, getUsersTC
     })(UsersContainer)
 

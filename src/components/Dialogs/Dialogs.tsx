@@ -4,10 +4,11 @@ import Wrapper from "../Wrapper/Wrapper";
 import {DialogItems} from "./DIalogItems/DialogItems";
 import {Messages} from "./Messages/Messages";
 import {DialogsPageStateType} from "../../redux/reducers/dialogs-reducer";
+import {AddMessagePayloadType} from "../../redux/reducers/actions/dialogs-actions";
 
 type PropsType = {
     state: DialogsPageStateType
-    addMessage: (messageText: string) => void
+    addMessageAC: (payload: AddMessagePayloadType) => void
 }
 
 
@@ -18,7 +19,7 @@ function Dialogs(props: PropsType) {
             <div className={classes.dialogs}>
                 <DialogItems dialogs={props.state.dialogs}/>
                 <Messages messages={props.state.messages}
-                          addMessage={props.addMessage}
+                          addMessageAC={props.addMessageAC}
                 />
             </div>
         </Wrapper>

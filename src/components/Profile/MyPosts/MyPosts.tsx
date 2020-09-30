@@ -1,31 +1,31 @@
 import classes from './MyPosts.module.scss'
 import React from "react";
 import Post from "./Post/Post";
-
-import {PostType} from "../../../redux/reducers/profile-page-reducer";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
 import {requiredField, maxLengthCreator} from "../../../utils/validators/validators";
 import {TextArea} from "../../common/FormControls/FormControls";
+import { PostType } from '../../../types/types';
+import {AddLikePayloadType, AddPostPayloadType, DeletePostPayloadType} from '../../../redux/reducers/actions/profile-actions';
 
 
 type PropsType = {
     posts: Array<PostType>
-    addPost: (postText: string) => void
-    addLike: (postId: string) => void
-    deletePost: (postId: string) => void
+    addPostAC: (payload: AddPostPayloadType) => void
+    addLikeAC: (payload: AddLikePayloadType) => void
+    deletePostAC: (payload: DeletePostPayloadType) => void
 }
 
-function MyPosts(props: PropsType) {
+const MyPosts: React.FC<PropsType> = (props)=> {
 
     let postElements = props.posts.map(post => <Post key={post.id}
                                                      postId={post.id}
                                                      message={post.message}
-                                                     addLike={props.addLike}
+                                                     addLikeAC={props.addLikeAC}
                                                      likeCount={post.likeCounter}
-                                                     deletePost={props.deletePost}/>);
+                                                     deletePostAC={props.deletePostAC}/>);
 
     const addNewPost = (values: AddPostFormType) => {
-        props.addPost(values.newPostBody)
+        props.addPostAC({message: values.newPostBody})
     }
 
     return (

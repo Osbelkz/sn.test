@@ -6,8 +6,11 @@
 //
 
 
-import {DispatchType, UserType} from "../../../types/types";
+import {UserType} from "../../../types/types";
 import {usersAPI} from "../../../api/api";
+import {ThunkAction} from "redux-thunk";
+import {RootStateType} from "../../redux-store";
+import {Dispatch} from "redux";
 
 export enum ACTIONS_TYPE {
     FOLLOW = "Users/FOLLOW",
@@ -65,7 +68,11 @@ export const toggleFollowingProgressAC = makeAction<ACTIONS_TYPE.TOGGLE_IS_FOLLO
 
 
 //              Users THUNKS
-export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: DispatchType) => {
+type GetStateType = () => RootStateType
+type DispatchType = Dispatch<UsersActionTypes>
+type ThunkType = ThunkAction<void, RootStateType, unknown, UsersActionTypes>
+
+export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => (dispatch) => {
 
     dispatch(toggleIsFetchingAC({isFetching: true}))
     dispatch(setCurrentPageAC({currentPage}))
@@ -79,19 +86,21 @@ export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: 
         });
 }
 
-export const followTC = (userId: string) => (dispatch: DispatchType) => {
+export const followTC = (userId: string): ThunkType => {
+    return (dispatch) => {
 
-    dispatch(toggleFollowingProgressAC({isFetching: true, userId}))
-    usersAPI.follow(userId)
-        .then((resultCode: number) => {
-            if (resultCode === 0) {
-                dispatch(setFollowAC({userId}))
-            }
-            dispatch(toggleFollowingProgressAC({isFetching: false, userId}))
-        })
+        dispatch(toggleFollowingProgressAC({isFetching: true, userId}))
+        usersAPI.follow(userId)
+            .then((resultCode: number) => {
+                if (resultCode === 0) {
+                    dispatch(setFollowAC({userId}))
+                }
+                dispatch(toggleFollowingProgressAC({isFetching: false, userId}))
+            })
+    }
 }
 
-export const unfollowTC = (userId: string) => (dispatch: DispatchType) => {
+export const unfollowTC = (userId: string): ThunkType => (dispatch) => {
 
     dispatch(toggleFollowingProgressAC({isFetching: true, userId}))
     usersAPI.unfollow(userId)

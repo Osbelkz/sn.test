@@ -9,6 +9,12 @@ let instance = axios.create({
     }
 })
 
+export enum ResultCodes {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
+}
+
 type GetUsersResponseType = {
     items: UserType[],
     totalCount: number,
@@ -27,7 +33,6 @@ type ResponseType<T = {}> = {
     messages: string[]
     resultCode: number
 }
-
 
 
 export const usersAPI = {
@@ -66,12 +71,12 @@ export const authAPI = {
         return instance.get<ResponseType<AuthUserData>>(`auth/me/`)
             .then(res => res.data);
     },
-    login(email: string, password: string, rememberMe:boolean = false) {
-        return instance.post<ResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post<ResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe})
             .then(res => res.data);
     },
     logout() {
-        return instance.delete<ResponseType>(`auth/login` )
+        return instance.delete<ResponseType>(`auth/login`)
             .then(res => res.data);
     }
 }

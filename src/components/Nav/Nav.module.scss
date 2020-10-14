@@ -1,48 +1,52 @@
 @import "src/mainColors";
 
 .nav {
-    //display: none;
-    background-color: $around;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100vh;
-    z-index: 1;
-    &__items {
-        margin-top: 150px;
-    }
+  //display: none;
+  background-color: $around;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  z-index: 1;
+
+  &__items {
+    margin-top: 150px;
+  }
 }
 
 
 .item {
+  color: $textAroundColor;
+  text-decoration: none;
+  display: flex;
+  padding: 5px 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: $hoverButtonColor;
     color: $textAroundColor;
-    text-decoration: none;
-    display: flex;
-    padding: 5px 5px;
-    transition: background-color 0.3s ease, color 0.3s ease ;
-    &:hover{
-        background-color: $hoverButtonColor;
+  }
 
-        color: $textAroundColor;
-    }
-    &.active {
-        padding: 5px 2px;
-        background-color: $activeButtonColor;
-        color: $textActiveButtonColor;
-        font-weight: 600;
-        border-left: 3px solid white;
-    }
-    &__icon {
+  &.active {
+    padding: 5px 2px;
+    background-color: $activeButtonColor;
+    color: $textActiveButtonColor;
+    font-weight: 600;
+    border-left: 3px solid white;
+  }
 
-        img {
-            height: 40px;
-        }
+  &__icon {
+
+    img {
+      height: 40px;
     }
-    &__name{
-        margin-left: 10px;
-        align-self: center;
-    }
+  }
+
+  &__name {
+    margin-left: 10px;
+    align-self: center;
+  }
 
 }
 
@@ -52,12 +56,12 @@
 
 
 @media (max-width: 1400px) {
-    .nav {
-        width: 50px;
+  .nav {
+    width: 50px;
+  }
+  .item {
+    &__name {
+      display: none;
     }
-    .item {
-        &__name {
-            display: none;
-        }
-    }
+  }
 }

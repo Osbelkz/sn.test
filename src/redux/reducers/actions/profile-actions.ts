@@ -1,6 +1,8 @@
-import {DispatchType, ProfileType} from "../../../types/types";
+import {ProfileType} from "../../../types/types";
 import {profileAPI} from "../../../api/api";
 import {Dispatch} from "redux";
+import {RootStateType} from "../../redux-store";
+import {ThunkAction} from "redux-thunk";
 
 export enum ACTIONS_TYPE {
     ADD_POST = "Profile/ADD-POST",
@@ -54,21 +56,26 @@ export const setUserStatusAC = makeAction<ACTIONS_TYPE.SET_USER_STATUS, setUserS
 
 //              Profile page THUNKS
 
-export const getUserProfileTC = (userId: string) => (dispatch: DispatchType) => {
+type GetStateType = () => RootStateType
+type DispatchType = Dispatch<ProfilePageActionTypes>
+type ThunkType = ThunkAction<void, RootStateType, unknown, ProfilePageActionTypes>
+
+
+export const getUserProfileTC = (userId: string): ThunkType => (dispatch) => {
     profileAPI.getProfile(userId)
         .then(data => {
             dispatch(setUserProfileAC({profile: data}))
         })
 }
 
-export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
+export const getStatusTC = (userId: string): ThunkType => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(status => {
             dispatch(setUserStatusAC({status}))
         })
 }
 
-export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
+export const updateStatusTC = (status: string): ThunkType => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
         .then(data => {
             if (data.resultCode === 0) {

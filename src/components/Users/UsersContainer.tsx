@@ -4,6 +4,13 @@ import {RootStateType} from "../../redux/redux-store";
 import Users from "./Users";
 import { getUsersTC, unfollowTC, followTC } from "../../redux/reducers/actions/users-actions";
 import { UserType } from "../../types/types";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/reducers/selectors/users-selector";
 
 type PropsType = MatStateToPropsType & {
     followTC: (userId: string) => void
@@ -34,17 +41,27 @@ type MatStateToPropsType = {
     followingInProgress: string[]
 }
 
+// let mapStateToProps = (state: RootStateType): MatStateToPropsType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
+
 let mapStateToProps = (state: RootStateType): MatStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
-
 // let mapDispatchToProps = (dispatch: DispatchType) => {
 //     return {
 //         follow: followAC,

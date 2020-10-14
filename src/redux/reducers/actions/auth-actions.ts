@@ -7,9 +7,11 @@
 
 import {AuthStateType} from "../auth-reducer";
 import {Dispatch} from "redux";
-import {DispatchActionType} from "../../../types/types";
-import {authAPI} from "../../../api/api";
-import {stopSubmit} from "redux-form";
+import {authAPI, ResultCodes} from "../../../api/api";
+import {FormAction, stopSubmit} from "redux-form";
+import {RootStateType} from "../../redux-store";
+import {ThunkAction} from "redux-thunk";
+import {ProfilePageActionTypes} from "./profile-actions";
 
 export enum ACTIONS_TYPE {
     SET_AUTH_USER_DATA = "Auth/SET_AUTH_USER_DATA",
@@ -29,21 +31,25 @@ type IActionUnion<A extends IStringMap<IAnyFunction>> = ReturnType<A[keyof A]>;
 export const setAuthUserDataAC = makeAction<ACTIONS_TYPE.SET_AUTH_USER_DATA, AuthStateType>(ACTIONS_TYPE.SET_AUTH_USER_DATA)
 
 //Auth THUNKS
+type GetStateType = () => RootStateType
+type DispatchType = Dispatch<ProfilePageActionTypes>
+type ThunkType = ThunkAction<void, RootStateType, unknown, AuthActionTypes | FormAction>
 
-export const getAuthUserDataTC = () => (dispatch: Dispatch<DispatchActionType>): void => {
-    authAPI.getAuthUserData()
+
+export const getAuthUserDataTC = (): ThunkType => (dispatch) => {
+    return authAPI.getAuthUserData()
         .then(data => {
             let {email, id, login} = data.data
-            if (data.resultCode === 0)
+            if (data.resultCode === ResultCodes.Success)
                 dispatch(setAuthUserDataAC({email, id, login, isAuth: true}))
         })
 }
 //any
-export const loginTC = (email: string, password: string, rememberMe: boolean = false) => (dispatch: any) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean = false): ThunkType => (dispatch) => {
 
     authAPI.login(email, password, rememberMe)
         .then(data => {
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodes.Success) {
                 dispatch(getAuthUserDataTC())
             } else {
                 let message = data.messages.length > 0 ? data.messages[0] : "Some error"
@@ -51,10 +57,10 @@ export const loginTC = (email: string, password: string, rememberMe: boolean = f
             }
         })
 }
-export const logoutTC = () => (dispatch: Dispatch<DispatchActionType>) => {
+export const logoutTC = (): ThunkType => (dispatch) => {
     authAPI.logout()
         .then(data => {
-            if (data.resultCode === 0)
+            if (data.resultCode === ResultCodes.Success)
                 dispatch(setAuthUserDataAC({isAuth: false, login: null, email: null, id: null}))
         })
 }

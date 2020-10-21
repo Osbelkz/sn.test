@@ -38,7 +38,6 @@ export const initializeAppTC = (): ThunkType => (dispatch) => {
     let promise: Promise = dispatch(getAuthUserDataTC())
     Promise.all([promise])
         .then(() => {
-            debugger
             dispatch(setInitializedSuccessAC())
         })
 }

@@ -36,33 +36,27 @@ type DispatchType = Dispatch<ProfilePageActionTypes>
 type ThunkType = ThunkAction<void, RootStateType, unknown, AuthActionTypes | FormAction>
 
 
-export const getAuthUserDataTC = (): ThunkType => (dispatch) => {
-    return authAPI.getAuthUserData()
-        .then(data => {
-            let {email, id, login} = data.data
-            if (data.resultCode === ResultCodes.Success)
-                dispatch(setAuthUserDataAC({email, id, login, isAuth: true}))
-        })
+export const getAuthUserDataTC = (): ThunkType => async (dispatch) => {
+    let data = await authAPI.getAuthUserData()
+    let {email, id, login} = data.data
+    if (data.resultCode === ResultCodes.Success)
+        dispatch(setAuthUserDataAC({email, id, login, isAuth: true}))
 }
 //any
-export const loginTC = (email: string, password: string, rememberMe: boolean = false): ThunkType => (dispatch) => {
-
-    authAPI.login(email, password, rememberMe)
-        .then(data => {
-            if (data.resultCode === ResultCodes.Success) {
-                dispatch(getAuthUserDataTC())
-            } else {
-                let message = data.messages.length > 0 ? data.messages[0] : "Some error"
-                dispatch(stopSubmit("login", {_error: message}))
-            }
-        })
-}
-export const logoutTC = (): ThunkType => (dispatch) => {
-    authAPI.logout()
-        .then(data => {
-            if (data.resultCode === ResultCodes.Success)
-                dispatch(setAuthUserDataAC({isAuth: false, login: null, email: null, id: null}))
-        })
+export const loginTC = (email: string, password: string, rememberMe: boolean = false): ThunkType =>
+    async (dispatch) => {
+        let data = await authAPI.login(email, password, rememberMe)
+        if (data.resultCode === ResultCodes.Success) {
+            dispatch(getAuthUserDataTC())
+        } else {
+            let message = data.messages.length > 0 ? data.messages[0] : "Some error"
+            dispatch(stopSubmit("login", {_error: message}))
+        }
+    }
+export const logoutTC = (): ThunkType => async (dispatch) => {
+    let data = await authAPI.logout()
+    if (data.resultCode === ResultCodes.Success)
+        dispatch(setAuthUserDataAC({isAuth: false, login: null, email: null, id: null}))
 }
 
 

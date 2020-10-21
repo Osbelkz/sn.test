@@ -1,6 +1,6 @@
-
 import {ACTIONS_TYPE, UsersActionTypes} from "./actions/users-actions";
-import { UserType } from "../../types/types";
+import {UserType} from "../../types/types";
+import {updateObjectInArray} from "../../utils/objects-helpers";
 
 export type UsersStateType = typeof initialState;
 
@@ -19,17 +19,13 @@ export const usersReducer = (state = initialState, action: UsersActionTypes): Us
         case ACTIONS_TYPE.FOLLOW: {
             return {
                 ...state,
-                users: state.users.map(user => user.id === action.payload.userId
-                    ? {...user, followed: true}
-                    : user)
+                users: updateObjectInArray(state.users, action.payload.userId, "id", {followed: true})
             }
         }
         case ACTIONS_TYPE.UNFOLLOW: {
             return {
                 ...state,
-                users: state.users.map(user => user.id === action.payload.userId
-                    ? {...user, followed: false}
-                    : user)
+                users: updateObjectInArray(state.users, action.payload.userId, "id", {followed: false})
             }
         }
         case ACTIONS_TYPE.SET_USERS: {

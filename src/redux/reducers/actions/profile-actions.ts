@@ -61,28 +61,22 @@ type DispatchType = Dispatch<ProfilePageActionTypes>
 type ThunkType = ThunkAction<void, RootStateType, unknown, ProfilePageActionTypes>
 
 
-export const getUserProfileTC = (userId: string): ThunkType => (dispatch) => {
-    profileAPI.getProfile(userId)
-        .then(data => {
-            dispatch(setUserProfileAC({profile: data}))
-        })
+export const getUserProfileTC = (userId: string): ThunkType => async (dispatch) => {
+    let data = await profileAPI.getProfile(userId)
+    dispatch(setUserProfileAC({profile: data}))
 }
 
-export const getStatusTC = (userId: string): ThunkType => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(status => {
-            dispatch(setUserStatusAC({status}))
-        })
+export const getStatusTC = (userId: string): ThunkType => async (dispatch) => {
+    let status = await profileAPI.getStatus(userId)
+    dispatch(setUserStatusAC({status}))
 }
 
-export const updateStatusTC = (status: string): ThunkType => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserStatusAC({status}))
-            }
+export const updateStatusTC = (status: string): ThunkType => async (dispatch) => {
+    let data = await profileAPI.updateStatus(status)
+    if (data.resultCode === 0) {
+        dispatch(setUserStatusAC({status}))
+    }
 
-        })
 }
 
 const ProfilePageActions = {

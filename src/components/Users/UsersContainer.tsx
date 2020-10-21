@@ -20,11 +20,13 @@ type PropsType = MatStateToPropsType & {
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        const {pageSize, currentPage} = this.props
+        this.props.getUsersTC(currentPage, pageSize)
     }
 
     onPageNumberChanged = (pageNumber: number) => {
-        this.props.getUsersTC(pageNumber, this.props.pageSize)
+        const {pageSize} = this.props
+        this.props.getUsersTC(pageNumber, pageSize)
     }
 
     render() {
@@ -41,17 +43,6 @@ type MatStateToPropsType = {
     followingInProgress: string[]
 }
 
-// let mapStateToProps = (state: RootStateType): MatStateToPropsType => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
-
 let mapStateToProps = (state: RootStateType): MatStateToPropsType => {
     return {
         users: getUsers(state),
@@ -62,16 +53,6 @@ let mapStateToProps = (state: RootStateType): MatStateToPropsType => {
         followingInProgress: getFollowingInProgress(state)
     }
 }
-// let mapDispatchToProps = (dispatch: DispatchType) => {
-//     return {
-//         follow: followAC,
-//         unfollow: unfollowAC,
-//         setUsers: setUsersAC,
-//         setCurrentPage: setCurrentPageAC,
-//         setTotalCountOfUsers: setTotalCountUsersAC,
-//         toggleIsFetching: toggleIsFetchingAC
-//     }
-// }
 
 export default connect(mapStateToProps,
     {

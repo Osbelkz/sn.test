@@ -1,11 +1,10 @@
 import React from "react";
 import Wrapper from "../Wrapper/Wrapper";
-import userDefaultPhoto from "../../assets/userDefaultPhoto.png";
 import classes from "./Users.module.scss";
 import {Preloader} from "../UI/Preloader/Preloader";
-import {NavLink} from "react-router-dom";
 import {UserType} from "../../types/types";
-import Pagination from "./Pagination";
+import Pagination from "../common/Pagination/Pagination";
+import User from "./User/User";
 
 type UsersTypes = {
     totalUsersCount: number
@@ -19,53 +18,41 @@ type UsersTypes = {
     followingInProgress: Array<string>
 }
 
-function Users(props: UsersTypes) {
-
-
+function Users({unfollowTC,
+                   followTC,
+                   followingInProgress,
+                   onPageNumberChanged,
+                   pageSize,
+                   totalUsersCount,
+                   currentPage,
+                   isFetching,
+                   users}: UsersTypes) {
     return (
         <Wrapper>
             <div className={classes.usersPage}>
                 <div className={classes.pageButton}>
-                    <Pagination currentPage={props.currentPage}
-                                itemsOnPage={props.pageSize}
-                                totalItems={props.totalUsersCount}
-                                changePageNumber={props.onPageNumberChanged}/>
+                    <Pagination currentPage={currentPage}
+                                itemsOnPage={pageSize}
+                                totalItems={totalUsersCount}
+                                changePageNumber={onPageNumberChanged}/>
 
                 </div>
-                {props.isFetching
+                {isFetching
                     ? <Preloader/>
                     : <div>
-                        {props.users.map(user => (
-                            <div className={classes.userCard} key={user.id}>
-                                <div className={classes.userCard__authorPhoto}>
-                                    <NavLink to={"/profile/" + user.id}>
-                                        <img src={user.photos.small !== null ? user.photos.small : userDefaultPhoto}
-                                             alt=""/>
-                                    </NavLink>
-                                    <div>
-                                        {user.followed
-                                            ? <button className={classes.followBtn}
-                                                      disabled={props.followingInProgress.some(id => id === user.id)}
-                                                      onClick={() => props.unfollowTC(user.id)}>{"unfollow"}</button>
-                                            : <button className={classes.followBtn}
-                                                      disabled={props.followingInProgress.some(id => id === user.id)}
-                                                      onClick={() => {props.followTC(user.id)}}>{"follow"}</button>}
-                                    </div>
-                                </div>
-                                <div className={classes.userCard__body}>
-
-                                    <div>{user.id}</div>
-                                    <div className={classes.userCard__body_header}>{user.name}</div>
-                                    <div className={classes.userCard__body_text}>{user.status}</div>
-
-                                </div>
-                            </div>
+                        {users.map(user => (
+                            <User userData={user}
+                                  key={user.id}
+                                  followTC={followTC}
+                                  unfollowTC={unfollowTC}
+                                  followingInProgress={followingInProgress}
+                            />
                         ))}
                         <div className={classes.pageButton}>
-                            <Pagination currentPage={props.currentPage}
-                                        itemsOnPage={props.pageSize}
-                                        totalItems={props.totalUsersCount}
-                                        changePageNumber={props.onPageNumberChanged}/>
+                            <Pagination currentPage={currentPage}
+                                        itemsOnPage={pageSize}
+                                        totalItems={totalUsersCount}
+                                        changePageNumber={onPageNumberChanged}/>
 
                         </div>
                     </div>}

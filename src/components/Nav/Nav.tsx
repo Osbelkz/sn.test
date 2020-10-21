@@ -6,18 +6,18 @@ import {NavItemsType} from "./NavContainer";
 type PropsType = {
     isAuth: boolean
     login: string | null
-    logoutTC: ()=>void
+    logoutTC: () => void
     navItems: NavItemsType[]
 }
 
-const Nav: React.FC<PropsType> = ({isAuth, login, logoutTC, navItems}: PropsType) => {
+const Nav: React.FC<PropsType> = ({isAuth, login, logoutTC, navItems}) => {
 
     return (
         <nav className={classes.nav}>
             <div className={classes.loginBlock}>
                 {isAuth
-                    ? <div>{login} - <button onClick={logoutTC}>Logout</button> </div>
-                    : <NavLink to={"/login"} >Login</NavLink>}
+                    ? <div>{login} - <button onClick={logoutTC}>Logout</button></div>
+                    : <NavLink to={"/login"}>Login</NavLink>}
             </div>
 
             <div className={classes.nav__items}>

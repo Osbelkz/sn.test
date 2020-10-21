@@ -10,7 +10,7 @@ export type FormDataType = {
     rememberMe: boolean
 }
 
-const LoginForm = (props: InjectedFormProps<FormDataType>) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={classes.loginForm}>
             <div className={classes.loginForm__field}>

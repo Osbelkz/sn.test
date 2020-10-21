@@ -1,19 +1,13 @@
 import React from "react";
 import classes from './Message.module.scss'
+import {MessageType} from "../../../../types/types";
 
-export type messagesType = {
-    id: string
-    name?: string,
-    message: string,
-    photo?: string,
-    time?: string,
-}
 
 type MessagePropsType = {
-    message: messagesType
+    message: MessageType
 }
 
-function Message(props: MessagePropsType) {
+const Message: React.FC<MessagePropsType> = ({message}) => {
 
     let messageClass = `${classes.message}`
     let messageRowClass = `${classes.message__row}`
@@ -26,17 +20,17 @@ function Message(props: MessagePropsType) {
     // }
 
     return (
-        <div className={messageClass} key={props.message.id}>
+        <div className={messageClass} key={message.id}>
             <div className={messageRowClass}>
                 <div className={classes.message__photo}>
-                    <img src={props.message.photo} alt=""/>
+                    <img src={message.photo} alt=""/>
                 </div>
                 <div >
                     <div className={messageBodyClass}>
-                        <div className={classes.message__userName}>{props.message.name}</div>
-                        <div>{props.message.message}</div>
+                        <div className={classes.message__userName}>{message.name}</div>
+                        <div>{message.message}</div>
                     </div>
-                    <div className={classes.message__time}>time {props.message.time}</div>
+                    <div className={classes.message__time}>time {message.time}</div>
                 </div>
 
             </div>

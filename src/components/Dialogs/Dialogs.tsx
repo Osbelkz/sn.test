@@ -12,14 +12,14 @@ type PropsType = {
 }
 
 
-function Dialogs(props: PropsType) {
+const Dialogs: React.FC<PropsType> = ({state, addMessageAC}) => {
 
     return (
         <Wrapper>
             <div className={classes.dialogs}>
-                <DialogItems dialogs={props.state.dialogs}/>
-                <Messages messages={props.state.messages}
-                          addMessageAC={props.addMessageAC}
+                <DialogItems dialogs={state.dialogs}/>
+                <Messages messages={state.messages}
+                          addMessageAC={addMessageAC}
                 />
             </div>
         </Wrapper>

@@ -12,14 +12,14 @@ type PropsType = {
 }
 
 
-function Post(props: PropsType) {
+function Post({message, addLikeAC, deletePostAC, likeCount, postId}: PropsType) {
 
     const OnClickHandler = () => {
-        props.addLikeAC({postId: props.postId})
+        addLikeAC({postId})
     }
 
     const onDeletePost = () => {
-        props.deletePostAC({postId: props.postId})
+        deletePostAC({postId})
     }
 
 
@@ -31,15 +31,12 @@ function Post(props: PropsType) {
             </div>
 
             <div className={classes.post__body}>
-
                 <div className={classes.post__body_header}>Post Author</div>
-
                 <div className={classes.post__body_text}>
-                    {props.message}
+                    {message}
                 </div>
-
                 <div className={classes.post__body_footer}>
-                    <button onClick={OnClickHandler}>LIKE {props.likeCount}</button>
+                    <button onClick={OnClickHandler}>LIKE {likeCount}</button>
                     <button onClick={onDeletePost}>Delete Post</button>
                 </div>
 

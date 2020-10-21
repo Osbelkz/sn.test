@@ -3,50 +3,6 @@
   padding: 20px;
 }
 
-.followBtn {
 
-  padding: 10px;
-  color: white;
-  border-radius: 5px;
-  background-color: coral;
 
-  &:disabled {
-    cursor: wait;
-    background-color: darkgrey;
-  }
-}
-
-.userCard {
-  display: flex;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fff;
-
-  &__authorPhoto {
-    display: flex;
-    flex: 0 0 70px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-right: 10px;
-
-    img {
-      width: 60px;
-      margin-bottom: 5px;
-      border-radius: 50%;
-    }
-  }
-
-  &__body {
-    &_header {
-      font-weight: 800;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &_text {
-      margin-top: 10px;
-    }
-  }
-}
 

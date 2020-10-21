@@ -10,7 +10,6 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import LoginPage from "./components/Login/Login";
 import NavContainer from "./components/Nav/NavContainer";
 import {connect} from "react-redux";
-import {getAuthUserDataTC} from "./redux/reducers/actions/auth-actions";
 import {compose} from "redux";
 import {initializeAppTC} from "./redux/reducers/actions/app-actions";
 import {RootStateType} from "./redux/redux-store";
@@ -34,7 +33,6 @@ class App extends React.Component<AppPropsTypes> {
 
     render() {
         if (!this.props.initialized) {
-            debugger
             return <Preloader />
         }
 

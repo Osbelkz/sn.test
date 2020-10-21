@@ -10,9 +10,9 @@ type MessagesPropsType = {
     addMessageAC: (payload: AddMessagePayloadType) => void
 }
 
-export function Messages(props: MessagesPropsType) {
+export const Messages: React.FC<MessagesPropsType> = ({addMessageAC, messages}) => {
 
-    let messagesElements = props.messages.map(m => <Message message={m} key={m.id}/>)
+    let messagesElements = messages.map(m => <Message message={m} key={m.id}/>)
 
     // function onPressEnter(e: KeyboardEvent<HTMLInputElement>) {
     //     if (e.key === "Enter") {
@@ -20,7 +20,7 @@ export function Messages(props: MessagesPropsType) {
     // }
 
     const addNewMessage = (values: AddMessageFormType) => {
-        props.addMessageAC({message: values.newMessageBody})
+        addMessageAC({message: values.newMessageBody})
     }
 
     return <div className={classes.messages}>

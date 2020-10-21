@@ -15,17 +15,17 @@ type PropsType = {
     deletePostAC: (payload: DeletePostPayloadType) => void
 }
 
-const MyPosts: React.FC<PropsType> = (props)=> {
+const MyPosts: React.FC<PropsType> = ({posts,addPostAC,addLikeAC,deletePostAC})=> {
 
-    let postElements = props.posts.map(post => <Post key={post.id}
+    let postElements = posts.map(post => <Post key={post.id}
                                                      postId={post.id}
                                                      message={post.message}
-                                                     addLikeAC={props.addLikeAC}
+                                                     addLikeAC={addLikeAC}
                                                      likeCount={post.likeCounter}
-                                                     deletePostAC={props.deletePostAC}/>);
+                                                     deletePostAC={deletePostAC}/>);
 
     const addNewPost = (values: AddPostFormType) => {
-        props.addPostAC({message: values.newPostBody})
+        addPostAC({message: values.newPostBody})
     }
 
     return (

@@ -9,32 +9,6 @@ let instance = axios.create({
     }
 })
 
-export enum ResultCodes {
-    Success = 0,
-    Error = 1,
-    CaptchaIsRequired = 10
-}
-
-type GetUsersResponseType = {
-    items: UserType[],
-    totalCount: number,
-    error: string | null
-}
-
-type AuthUserData = {
-    email: string
-    id: number
-    login: string
-}
-
-type ResponseType<T = {}> = {
-    data: T
-    fieldsErrors: string[]
-    messages: string[]
-    resultCode: number
-}
-
-
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
         return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -42,11 +16,9 @@ export const usersAPI = {
     },
     unfollow(userId: string) {
         return instance.delete<ResponseType>(`follow/${userId}`)
-            .then(res => res.data.resultCode)
     },
     follow(userId: string) {
         return instance.post<ResponseType>(`follow/${userId}`)
-            .then(res => res.data.resultCode)
     }
 }
 
@@ -79,4 +51,29 @@ export const authAPI = {
         return instance.delete<ResponseType>(`auth/login`)
             .then(res => res.data);
     }
+}
+
+export enum ResultCodes {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
+}
+
+type GetUsersResponseType = {
+    items: UserType[],
+    totalCount: number,
+    error: string | null
+}
+
+type AuthUserData = {
+    email: string
+    id: number
+    login: string
+}
+
+type ResponseType<T = {}> = {
+    data: T
+    fieldsErrors: string[]
+    messages: string[]
+    resultCode: number
 }

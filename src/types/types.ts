@@ -46,6 +46,9 @@ export interface PostType {
 export interface MessageType {
     id: string
     message: string
+    photo?: string
+    time?: string
+    name?: string
 }
 
 export interface DialogType {

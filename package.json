@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "https://osbelkz.github.io/sn.test/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",

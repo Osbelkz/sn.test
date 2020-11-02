@@ -8,14 +8,15 @@ import LoginForm, { FormDataType } from './LoginForm/LoginForm';
 
 
 type PropsType = {
-    loginTC: (email: string, password: string, rememberMe: boolean) => void
+    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void
     isAuth: boolean
+    captchaUrl: null | string
 }
 
-const Login: React.FC<PropsType> = ({loginTC, isAuth}) => {
+const Login: React.FC<PropsType> = ({loginTC, isAuth, captchaUrl}) => {
 
     const onSubmit = (formData: FormDataType) => {
-        loginTC(formData.email, formData.password, formData.rememberMe)
+        loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
     if (isAuth) {
@@ -26,13 +27,14 @@ const Login: React.FC<PropsType> = ({loginTC, isAuth}) => {
         <div className={classes.loginContainer}>
             <div className={classes.loginWrapper}>
                 <h2>Login</h2>
-                <LoginForm onSubmit={onSubmit}/>
+                <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
             </div>
         </div>
     );
 };
 
 const mapStateToProps = (state: RootStateType)=>({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 

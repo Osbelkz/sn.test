@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -29,9 +29,16 @@ type MapStateToPropsType = {
 type AppPropsTypes = MapDispatchToPropsType & MapStateToPropsType
 
 class App extends React.Component<AppPropsTypes> {
-
+    catchAllUnhandledErrors = (promise: any) => {
+        alert("some error occured")
+        console.error(promise)
+    }
     componentDidMount() {
         this.props.initializeAppTC()
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    }
+    componentWillMount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -58,10 +65,7 @@ class App extends React.Component<AppPropsTypes> {
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>
                         <Route path='/login' component={LoginPage}/>
-                        <Route path='/' render={() =>
-                            <React.Suspense fallback={<Preloader/>}>
-                                <ProfileContainer/>
-                            </React.Suspense>}/>
+                        <Route path='/' render={() => <Redirect to={"profile"}/>}/>
                     </Switch>
                 </div>
             </div>

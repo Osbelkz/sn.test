@@ -35,6 +35,12 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put<ResponseType>(`profile/status`, {status})
             .then(res => res.data)
+    },
+    savePhoto(file: any) {
+        let formData = new FormData()
+        formData.append("image", file)
+        return instance.put<ResponseType<ProfileType>>(`profile/photo`, formData)
+            .then(res => res.data)
     }
 }
 
@@ -43,14 +49,21 @@ export const authAPI = {
         return instance.get<ResponseType<AuthUserData>>(`auth/me/`)
             .then(res => res.data);
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post<ResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
+        return instance.post<ResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe, captcha})
             .then(res => res.data);
     },
     logout() {
         return instance.delete<ResponseType>(`auth/login`)
             .then(res => res.data);
     }
+}
+
+export const securityAPI = {
+    getCaptchUrl() {
+        return instance.get(`security/get-captcha-url`)
+    },
+
 }
 
 export enum ResultCodes {

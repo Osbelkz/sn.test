@@ -1,19 +1,33 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from './ProfileInfo.module.scss'
 import {Preloader} from "../../UI/Preloader/Preloader";
 import userDefaultPhoto from "../../../assets/userDefaultPhoto.png";
 import ProfileStatus from "./ProfileStatus";
-import { ProfileType } from "../../../types/types";
+import {ProfileType} from "../../../types/types";
+import Contact from "./Contact";
+import ProfileData from "./ProfileData";
+import ProfileDataForm from "./ProfileDataForm";
 
 export type PropsType = {
     profile: ProfileType | null
     status: string
     updateStatus: (newStatus: string) => void
+    isOwner: boolean
+    savePhoto: (photo: any) => void
 }
 
-const ProfileInfo: React.FC<PropsType> = ({profile, updateStatus, status}) => {
+const ProfileInfo: React.FC<PropsType> = ({profile, updateStatus, status, isOwner, savePhoto}) => {
+
+    const [editMode, setEditMode] = useState(false)
+
     if (!profile) {
         return <Preloader/>
+    }
+
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
+            savePhoto(e.target.files[0])
+        }
     }
     return (
         <div className={classes.profile_info}>
@@ -23,11 +37,14 @@ const ProfileInfo: React.FC<PropsType> = ({profile, updateStatus, status}) => {
             </div>
             <div className={classes.profile_info__description}>
                 <ProfileStatus status={status} updateStatus={updateStatus}/>
-                <h3>{profile.fullName}</h3>
-                <p>{profile.aboutMe}</p>
-                <p>looking for a job: {profile.lookingForAJob ? "yes" : "no"}</p>
-                <p>{profile.lookingForAJobDescription}</p>
-                <p>{profile.contacts.facebook}</p>
+                {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                {editMode
+                    ? <ProfileDataForm profile={profile}
+                                       isOwner={isOwner}
+                                       diactivateEditMode={() => setEditMode(false)}/>
+                    : <ProfileData profile={profile}
+                                   isOwner={isOwner}
+                                   activateEditMode={() => setEditMode(true)}/>}
             </div>
         </div>
     )
@@ -35,3 +52,4 @@ const ProfileInfo: React.FC<PropsType> = ({profile, updateStatus, status}) => {
 
 
 export default ProfileInfo;
+

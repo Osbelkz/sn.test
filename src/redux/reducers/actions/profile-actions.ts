@@ -1,4 +1,4 @@
-import {ProfileType} from "../../../types/types";
+import {ProfileType, PhotosType} from "../../../types/types";
 import {profileAPI} from "../../../api/api";
 import {Dispatch} from "redux";
 import {RootStateType} from "../../redux-store";
@@ -10,6 +10,7 @@ export enum ACTIONS_TYPE {
     DELETE_POST = "Profile/DELETE_POST",
     SET_USER_PROFILE = "Profile/SET_USER_PROFILE",
     SET_USER_STATUS = "Profile/SET_USER_STATUS",
+    SET_USER_PHOTO = "Profile/SET_USER_PHOTO",
 }
 
 const makeAction = <T extends ACTIONS_TYPE, P>(type: T) => (payload: P) => ({type, payload})
@@ -54,6 +55,8 @@ export type setUserStatusPayloadType = {
 }
 export const setUserStatusAC = makeAction<ACTIONS_TYPE.SET_USER_STATUS, setUserStatusPayloadType>(ACTIONS_TYPE.SET_USER_STATUS)
 
+export const setPhotoAC = makeAction<ACTIONS_TYPE.SET_USER_PHOTO, PhotosType>(ACTIONS_TYPE.SET_USER_PHOTO)
+
 //              Profile page THUNKS
 
 type GetStateType = () => RootStateType
@@ -76,7 +79,12 @@ export const updateStatusTC = (status: string): ThunkType => async (dispatch) =>
     if (data.resultCode === 0) {
         dispatch(setUserStatusAC({status}))
     }
-
+}
+export const savePhoto = (file: any): ThunkType => async (dispatch) => {
+    let data = await profileAPI.savePhoto(file)
+    if (data.resultCode === 0) {
+        dispatch(setPhotoAC(data.data.photos))
+    }
 }
 
 const ProfilePageActions = {
@@ -85,6 +93,7 @@ const ProfilePageActions = {
     deletePostAC,
     setUserProfileAC,
     setUserStatusAC,
+    setPhotoAC,
 }
 
 export type ProfilePageActionTypes = IActionUnion<typeof ProfilePageActions>

@@ -57,6 +57,11 @@ export const profileReducer = (
                 ...action.payload
             }
         }
+        case ACTIONS_TYPE.SET_USER_PHOTO:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.payload} as ProfileType | null
+            }
         default:
             return state;
     }

@@ -28,7 +28,7 @@ export type PhotosType = {
 }
 
 export type ProfileType = {
-    userId: number
+    userId: string
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     aboutMe: string | null

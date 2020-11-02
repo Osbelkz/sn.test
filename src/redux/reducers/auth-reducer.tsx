@@ -1,7 +1,7 @@
 import {ACTIONS_TYPE, AuthActionTypes} from "./actions/auth-actions";
 
 let initialState = {
-    id: null as number | null,
+    id: null as string | null,
     login: null as string | null,
     email: null as string | null,
     isAuth: false,

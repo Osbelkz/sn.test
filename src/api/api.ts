@@ -80,7 +80,7 @@ type GetUsersResponseType = {
 
 type AuthUserData = {
     email: string
-    id: number
+    id: string
     login: string
 }
 

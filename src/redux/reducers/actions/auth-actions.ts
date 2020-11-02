@@ -22,7 +22,7 @@ type IAnyFunction = (...args: any[]) => any;
 type IActionUnion<A extends IStringMap<IAnyFunction>> = ReturnType<A[keyof A]>;
 
 type setAuthUserDataPayload = {
-    id: number | null,
+    id: string | null,
     login: string | null,
     email: string | null,
     isAuth: boolean,

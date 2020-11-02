@@ -1,5 +1,5 @@
-import React from 'react';
-import {connect} from "react-redux";
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import Nav from "./Nav";
 import { logoutTC } from '../../redux/reducers/actions/auth-actions';
@@ -10,6 +10,7 @@ import Users from "../../assets/nav/Profile-GroupFriend-Outline.svg";
 import News from "../../assets/nav/Documents-Outline.svg";
 import Music from "../../assets/nav/Play-Outline.svg";
 import Settings from "../../assets/nav/Setting-Outline.svg";
+import {AuthStateType} from "../../redux/reducers/auth-reducer";
 
 export type NavItemsType = {
     id: string
@@ -18,39 +19,31 @@ export type NavItemsType = {
     navName: string
 }
 
-type MapStatePropsType = {
-    isAuth: boolean
-    login: string | null
-}
+let navItems: Array<NavItemsType> = [
+    {id: uuid(), pathTo: '/profile', icon: Profile, navName: 'PROFILE'},
+    {id: uuid(), pathTo: '/messages', icon: Chat, navName: 'MESSAGES'},
+    {id: uuid(), pathTo: '/users', icon: Users, navName: 'USERS'},
+    {id: uuid(), pathTo: '/news', icon: News, navName: 'NEWS'},
+    {id: uuid(), pathTo: '/music', icon: Music, navName: 'MUSIC'},
+    {id: uuid(), pathTo: '/settings', icon: Settings, navName: 'SETTINGS'},
+]
 
-type MapDispatchToPropsType = {
-    logoutTC: () => void
-}
+const NavContainer = () =>  {
 
-type RootPropsType = MapStatePropsType & MapDispatchToPropsType
+        const dispatch = useDispatch()
+        const {isAuth, login} = useSelector<RootStateType, AuthStateType>(state => state.auth)
 
-class NavContainer extends React.Component<RootPropsType> {
+        const logoutHandler = useCallback(() => {
+            dispatch(logoutTC())
+        }, [])
 
-
-
-    render() {
-        let navItems: Array<NavItemsType> = [
-            {id: uuid(), pathTo: '/profile', icon: Profile, navName: 'PROFILE'},
-            {id: uuid(), pathTo: '/messages', icon: Chat, navName: 'MESSAGES'},
-            {id: uuid(), pathTo: '/users', icon: Users, navName: 'USERS'},
-            {id: uuid(), pathTo: '/news', icon: News, navName: 'NEWS'},
-            {id: uuid(), pathTo: '/music', icon: Music, navName: 'MUSIC'},
-            {id: uuid(), pathTo: '/settings', icon: Settings, navName: 'SETTINGS'},
-        ]
         return (
-            <Nav {...this.props} navItems={navItems}/>
+            <Nav navItems={navItems}
+                 isAuth={isAuth}
+                 login={login}
+                 logoutTC={logoutHandler}/>
         )
     }
-}
 
-const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
-    isAuth: state.auth.isAuth,
-    login: state.auth.login,
-})
 
-export default connect(mapStateToProps, {logoutTC})(NavContainer);
+export default NavContainer;

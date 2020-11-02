@@ -1,74 +1,52 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import Profile from "./Profile";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {withRouter, RouteComponentProps} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {compose} from "redux";
-import {ProfileType} from "../../types/types";
-import {getStatusTC, getUserProfileTC, savePhoto, updateStatusTC} from "../../redux/reducers/actions/profile-actions";
+import {getStatusTC, getUserProfileTC, savePhotoTC, updateStatusTC} from "../../redux/reducers/actions/profile-actions";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {ProfilePageStateType} from "../../redux/reducers/profile-page-reducer";
+import {AuthStateType} from "../../redux/reducers/auth-reducer";
 
 
-type PathParamsType = {
-    userId: string
-}
-type MapStateToPropsType = {
-    profile: ProfileType | null
-    status: string
-    authUserId: number | null
-    isAuth: boolean
-}
-type PropsType =
-    RouteComponentProps<PathParamsType>
-    & MapStateToPropsType
-    & {
-    getUserProfileTC: (userId: string) => void,
-    getStatusTC: (userId: string) => void,
-    updateStatusTC: (newStatus: string) => void
-    savePhoto: (photo: any) => void
-}
+const ProfileContainer: React.FC = () => {
 
-const ProfileContainer: React.FC<PropsType> = (props) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    let {userId} = useParams<{userId: string}>()
+    const {profile, status} = useSelector<RootStateType, ProfilePageStateType>(state => state.profilePage)
+    const {id: authUserId} = useSelector<RootStateType, AuthStateType>(state => state.auth)
 
-    const refreshProfile = () => {
-        let userId = props.match.params.userId;
+
+    useEffect(() => {
         if (!userId) {
             // @ts-ignore
-            userId = props.authUserId
+            userId = authUserId
             if (!userId) {
-                props.history.push("/login")
+                history.push("/login")
             }
         }
-        props.getUserProfileTC(userId)
-        props.getStatusTC(userId)
-    }
-    useEffect(() => {
-        refreshProfile()
-    }, [props.match.params.userId])
+        dispatch(getUserProfileTC(userId))
+        dispatch(getStatusTC(userId))
+    }, [userId])
 
+    const savePhotoHandler = useCallback((photo: any) => {
+        dispatch(savePhotoTC(photo))
+    }, [])
+    const updateStatusHandler = useCallback((newStatus: string) => {
+        dispatch(updateStatusTC(newStatus))
+    }, [])
 
     return (
-        <Profile profile={props.profile}
-                 isOwner={!props.match.params.userId}
-                 status={props.status}
-                 savePhoto={props.savePhoto}
-                 updateStatus={updateStatusTC}/>
+        <Profile profile={profile}
+                 isOwner={!userId}
+                 status={status}
+                 savePhoto={savePhotoHandler}
+                 updateStatus={updateStatusHandler}/>
     )
 }
 
 
-let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
-    return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        authUserId: state.auth.id,
-        isAuth: state.auth.isAuth
-    }
-}
 
-export default compose<any>(
-    withAuthRedirect,
-    connect(mapStateToProps, {getUserProfileTC, getStatusTC, updateStatusTC, savePhoto}),
-    withRouter,
-)
-(ProfileContainer)
+export default compose<any>(withAuthRedirect,)(ProfileContainer)

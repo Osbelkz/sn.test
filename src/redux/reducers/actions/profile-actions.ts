@@ -80,7 +80,7 @@ export const updateStatusTC = (status: string): ThunkType => async (dispatch) =>
         dispatch(setUserStatusAC({status}))
     }
 }
-export const savePhoto = (file: any): ThunkType => async (dispatch) => {
+export const savePhotoTC = (file: any): ThunkType => async (dispatch) => {
     let data = await profileAPI.savePhoto(file)
     if (data.resultCode === 0) {
         dispatch(setPhotoAC(data.data.photos))

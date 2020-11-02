@@ -32,15 +32,10 @@ export const usersReducer = (state = initialState, action: UsersActionTypes): Us
             return {...state, users: [...action.payload.users]}
         }
 
-        case ACTIONS_TYPE.SET_CURRENT_PAGE: {
+        case ACTIONS_TYPE.SET_CURRENT_PAGE:
+        case ACTIONS_TYPE.SET_TOTAL_COUNT:
+        case ACTIONS_TYPE.TOGGLE_IS_FETCHING:
             return {...state, ...action.payload}
-        }
-        case ACTIONS_TYPE.SET_TOTAL_COUNT: {
-            return {...state, ...action.payload}
-        }
-        case ACTIONS_TYPE.TOGGLE_IS_FETCHING: {
-            return {...state, ...action.payload}
-        }
         case ACTIONS_TYPE.TOGGLE_IS_FOLLOWING_PROGRESS: {
             return {
                 ...state, followingInProgress: action.payload.isFetching

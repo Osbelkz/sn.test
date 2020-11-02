@@ -1,20 +1,26 @@
-import React from "react";
+import React, {useCallback} from "react";
 import Dialogs from "./Dialogs";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {addMessageAC} from "../../redux/reducers/actions/dialogs-actions";
+import {addMessageAC, AddMessagePayloadType} from "../../redux/reducers/actions/dialogs-actions";
+import {DialogsPageStateType} from "../../redux/reducers/dialogs-reducer";
 
 
-let mapStateToProps = (state: RootStateType) => {
-    return {
-        state: state.dialogsPage,
-    }
-}
 
-export default compose<any>(
-    withAuthRedirect,
-    connect(mapStateToProps, {addMessageAC}),
-)(Dialogs)
-;
+const DialogsContainer = () => {
+
+    const dispatch = useDispatch()
+    const dialogsPageState = useSelector<RootStateType, DialogsPageStateType>(state => state.dialogsPage)
+
+    const addMessageHandler = useCallback((payload: AddMessagePayloadType) => {
+        dispatch(addMessageAC(payload))
+    }, [])
+
+    return (
+        <Dialogs state={dialogsPageState} addMessageAC={addMessageHandler} />
+    );
+};
+
+export default compose<any>(withAuthRedirect,)(DialogsContainer);

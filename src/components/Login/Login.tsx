@@ -1,23 +1,21 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import classes from "./Login.module.scss";
-import { connect } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {RootStateType} from "../../redux/redux-store";
 import {loginTC} from '../../redux/reducers/actions/auth-actions';
 import LoginForm, { FormDataType } from './LoginForm/LoginForm';
+import {AuthStateType} from "../../redux/reducers/auth-reducer";
 
 
-type PropsType = {
-    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-    isAuth: boolean
-    captchaUrl: null | string
-}
+const Login: React.FC = () => {
 
-const Login: React.FC<PropsType> = ({loginTC, isAuth, captchaUrl}) => {
+    const dispatch = useDispatch()
+    const {isAuth, captchaUrl} = useSelector<RootStateType, AuthStateType>(state => state.auth)
 
-    const onSubmit = (formData: FormDataType) => {
-        loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
-    }
+    const onSubmit = useCallback((formData: FormDataType) => {
+        dispatch(loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha))
+    }, [])
 
     if (isAuth) {
         return <Redirect to={"/profile"}/>
@@ -33,9 +31,4 @@ const Login: React.FC<PropsType> = ({loginTC, isAuth, captchaUrl}) => {
     );
 };
 
-const mapStateToProps = (state: RootStateType)=>({
-    captchaUrl: state.auth.captchaUrl,
-    isAuth: state.auth.isAuth
-})
-
-export default connect(mapStateToProps, {loginTC})(Login);
+export default Login;

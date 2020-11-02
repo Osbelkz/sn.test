@@ -12,21 +12,14 @@ type UsersTypes = {
     currentPage: number
     onPageNumberChanged: (pageNumber: number) => void
     users: UserType[]
-    followTC: (userId: string) => void
-    unfollowTC: (userId: string) => void
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
     isFetching: boolean
     followingInProgress: Array<string>
 }
 
-function Users({unfollowTC,
-                   followTC,
-                   followingInProgress,
-                   onPageNumberChanged,
-                   pageSize,
-                   totalUsersCount,
-                   currentPage,
-                   isFetching,
-                   users}: UsersTypes) {
+const Users: React.FC<UsersTypes> = ({unfollow, follow, followingInProgress, onPageNumberChanged,
+                   pageSize, totalUsersCount, currentPage, isFetching, users}) => {
     return (
         <Wrapper>
             <div className={classes.usersPage}>
@@ -43,8 +36,8 @@ function Users({unfollowTC,
                         {users.map(user => (
                             <User userData={user}
                                   key={user.id}
-                                  followTC={followTC}
-                                  unfollowTC={unfollowTC}
+                                  follow={follow}
+                                  unfollow={unfollow}
                                   followingInProgress={followingInProgress}
                             />
                         ))}

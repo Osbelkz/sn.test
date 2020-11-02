@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import './App.scss';
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-
 import UsersContainer from "./components/Users/UsersContainer";
 import LoginPage from "./components/Login/Login";
 import NavContainer from "./components/Nav/NavContainer";

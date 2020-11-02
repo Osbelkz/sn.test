@@ -2,8 +2,6 @@ import React, {useCallback} from "react";
 import Dialogs from "./Dialogs";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {compose} from "redux";
 import {addMessageAC, AddMessagePayloadType} from "../../redux/reducers/actions/dialogs-actions";
 import {DialogsPageStateType} from "../../redux/reducers/dialogs-reducer";
 
@@ -23,4 +21,4 @@ const DialogsContainer = () => {
     );
 };
 
-export default compose<any>(withAuthRedirect,)(DialogsContainer);
+export default DialogsContainer;

@@ -3,9 +3,7 @@ import Profile from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {useHistory, useParams} from "react-router-dom";
-import {compose} from "redux";
 import {getStatusTC, getUserProfileTC, savePhotoTC, updateStatusTC} from "../../redux/reducers/actions/profile-actions";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {ProfilePageStateType} from "../../redux/reducers/profile-page-reducer";
 import {AuthStateType} from "../../redux/reducers/auth-reducer";
 
@@ -49,4 +47,4 @@ const ProfileContainer: React.FC = () => {
 
 
 
-export default compose<any>(withAuthRedirect,)(ProfileContainer)
+export default ProfileContainer

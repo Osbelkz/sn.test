@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {initializeAppTC} from "./redux/reducers/actions/app-actions";
 import {RootStateType} from "./redux/redux-store";
 import {Preloader} from "./components/UI/Preloader/Preloader";
+import RedirectComponent from './hoc/withAuthRedirect';
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 
@@ -45,12 +46,12 @@ const App: React.FC = () => {
                 <Switch>
                     <Route path='/profile/:userId?' render={() =>
                         <React.Suspense fallback={<Preloader/>}>
-                            <ProfileContainer/>
+                            <RedirectComponent><ProfileContainer/></RedirectComponent>
                         </React.Suspense>
                     }/>
                     <Route path='/messages' render={() =>
                         <React.Suspense fallback={<Preloader/>}>
-                            <DialogsContainer/>
+                            <RedirectComponent><DialogsContainer/></RedirectComponent>
                         </React.Suspense>}/>
                     <Route path='/users' component={UsersContainer}/>
                     <Route path='/news' component={News}/>

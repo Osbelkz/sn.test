@@ -2,6 +2,8 @@ import React from "react";
 import classes from './Nav.module.scss'
 import {NavLink} from "react-router-dom";
 import {NavItemsType} from "./NavContainer";
+import Button from "../common/Buttons/Button/Button";
+import LoginButton from "../common/Buttons/LogoutButton/LogoutButton";
 
 type PropsType = {
     isAuth: boolean
@@ -14,10 +16,18 @@ const Nav: React.FC<PropsType> = ({isAuth, login, logoutTC, navItems}) => {
 
     return (
         <nav className={classes.nav}>
-            <div className={classes.loginBlock}>
+            <div className={classes.login__info}>
                 {isAuth
-                    ? <div>{login} - <button onClick={logoutTC}>Logout</button></div>
-                    : <NavLink to={"/login"}>Login</NavLink>}
+                    ? <>
+                        <div>{login}</div>
+                        <LoginButton btnType={"logout"} onClick={logoutTC}>Logout</LoginButton>
+                    </>
+                    : <>
+                        <div><b>Login</b></div>
+                        <LoginButton btnType={"login"}>
+                            <NavLink className={classes.login} to={"/login"}/>
+                        </LoginButton>
+                    </>}
             </div>
 
             <div className={classes.nav__items}>

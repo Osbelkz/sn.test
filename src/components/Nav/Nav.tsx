@@ -2,33 +2,18 @@ import React from "react";
 import classes from './Nav.module.scss'
 import {NavLink} from "react-router-dom";
 import {NavItemsType} from "./NavContainer";
-import Button from "../common/Buttons/Button/Button";
-import LoginButton from "../common/Buttons/LogoutButton/LogoutButton";
+import LoginNav from "./LoginNav/LoginNav";
 
 type PropsType = {
-    isAuth: boolean
-    login: string | null
-    logoutTC: () => void
     navItems: NavItemsType[]
 }
 
-const Nav: React.FC<PropsType> = ({isAuth, login, logoutTC, navItems}) => {
+const Nav: React.FC<PropsType> = ({navItems}) => {
 
     return (
         <nav className={classes.nav}>
-            <div className={classes.login__info}>
-                {isAuth
-                    ? <>
-                        <div>{login}</div>
-                        <LoginButton btnType={"logout"} onClick={logoutTC}>Logout</LoginButton>
-                    </>
-                    : <>
-                        <div><b>Login</b></div>
-                        <LoginButton btnType={"login"}>
-                            <NavLink className={classes.login} to={"/login"}/>
-                        </LoginButton>
-                    </>}
-            </div>
+
+            <LoginNav />
 
             <div className={classes.nav__items}>
                 {navItems.map(navItem => (

@@ -30,18 +30,8 @@ let navItems: Array<NavItemsType> = [
 
 const NavContainer = () =>  {
 
-        const dispatch = useDispatch()
-        const {isAuth, login} = useSelector<RootStateType, AuthStateType>(state => state.auth)
-
-        const logoutHandler = useCallback(() => {
-            dispatch(logoutTC())
-        }, [])
-
         return (
-            <Nav navItems={navItems}
-                 isAuth={isAuth}
-                 login={login}
-                 logoutTC={logoutHandler}/>
+            <Nav navItems={navItems}/>
         )
     }
 

@@ -11,7 +11,7 @@ import {AuthStateType} from "../../redux/reducers/auth-reducer";
 const Login: React.FC = () => {
 
     const dispatch = useDispatch()
-    const {isAuth, captchaUrl} = useSelector<RootStateType, AuthStateType>(state => state.auth)
+    const {isAuth, captchaUrl, error} = useSelector<RootStateType, AuthStateType>(state => state.auth)
 
     const onSubmit = useCallback((formData: FormDataType) => {
         dispatch(loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha))
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
         <div className={classes.loginContainer}>
             <div className={classes.loginWrapper}>
                 <h2>Login</h2>
-                <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+                <LoginForm error={error} captchaUrl={captchaUrl} onSubmit={onSubmit}/>
             </div>
         </div>
     );

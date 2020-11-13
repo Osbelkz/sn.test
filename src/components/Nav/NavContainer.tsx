@@ -1,8 +1,5 @@
-import React, {useCallback} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
+import React from 'react';
 import Nav from "./Nav";
-import { logoutTC } from '../../redux/reducers/actions/auth-actions';
 import {uuid} from "uuidv4";
 import Profile from "../../assets/nav/Profile-Outline.svg";
 import Chat from "../../assets/nav/Chat-Outline.svg";
@@ -10,7 +7,6 @@ import Users from "../../assets/nav/Profile-GroupFriend-Outline.svg";
 import News from "../../assets/nav/Documents-Outline.svg";
 import Music from "../../assets/nav/Play-Outline.svg";
 import Settings from "../../assets/nav/Setting-Outline.svg";
-import {AuthStateType} from "../../redux/reducers/auth-reducer";
 
 export type NavItemsType = {
     id: string

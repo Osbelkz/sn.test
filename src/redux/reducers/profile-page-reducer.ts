@@ -12,7 +12,8 @@ let initialState = {
         {id: uuid(), message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. ", likeCounter: 356}
     ] as PostType[],
     profile: null as ProfileType | null,
-    status: ""
+    status: "",
+    updateProfileTextError: ""
 }
 
 
@@ -45,18 +46,18 @@ export const profileReducer = (
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.payload.postId)
             }
-        case ACTIONS_TYPE.SET_USER_PROFILE: {
+        case ACTIONS_TYPE.SET_USER_PROFILE:
+        case ACTIONS_TYPE.SET_USER_STATUS:
             return {
                 ...state,
                 ...action.payload
             }
-        }
-        case ACTIONS_TYPE.SET_USER_STATUS: {
-            return {
+        case ACTIONS_TYPE.UPDATE_PROFILE:
+            debugger
+            return  {
                 ...state,
-                ...action.payload
+                profile: {...state.profile, ...action.payload} as ProfileType | null
             }
-        }
         case ACTIONS_TYPE.SET_USER_PHOTO:
             return {
                 ...state,

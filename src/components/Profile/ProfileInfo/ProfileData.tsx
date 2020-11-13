@@ -18,8 +18,11 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, activate
             <p>{profile.lookingForAJobDescription}</p>
             <div>
                 <div>Contacts:</div>
-                {Object.keys(profile.contacts).map((k: string) =>
-                    <Contact key={k} contactTitle={k} contactValue={profile.contacts[k]}/>
+                {Object.keys(profile.contacts).map((k: string) => {
+                        if (profile.contacts[k]) {
+                            return <Contact key={k} contactTitle={k} contactValue={profile.contacts[k]}/>
+                        }
+                    }
                 )}
             </div>
             <p>{profile.contacts.facebook}</p>

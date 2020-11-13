@@ -1,5 +1,5 @@
 import axios from "axios";
-import {UserType, ProfileType} from "../types/types";
+import {UserType, ProfileType, ContactsType} from "../types/types";
 
 let instance = axios.create({
     withCredentials: true,
@@ -41,6 +41,9 @@ export const profileAPI = {
         formData.append("image", file)
         return instance.put<ResponseType<ProfileType>>(`profile/photo`, formData)
             .then(res => res.data)
+    },
+    updateProfile(data: UpdateProfileRequestType) {
+        return instance.put<ResponseType>(`profile`, data)
     }
 }
 
@@ -66,11 +69,23 @@ export const securityAPI = {
 
 }
 
+
 export enum ResultCodes {
     Success = 0,
     Error = 1,
     CaptchaIsRequired = 10
 }
+
+export type UpdateProfileRequestType = {
+    userId: string
+    lookingForAJob: boolean
+    aboutMe: string | null
+    lookingForAJobDescription: string | null
+    fullName: string
+    contacts: ContactsType
+}
+
+
 
 type GetUsersResponseType = {
     items: UserType[],

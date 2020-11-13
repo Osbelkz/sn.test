@@ -4,19 +4,20 @@ import {Preloader} from "../../UI/Preloader/Preloader";
 import userDefaultPhoto from "../../../assets/userDefaultPhoto.png";
 import ProfileStatus from "./ProfileStatus";
 import {ProfileType} from "../../../types/types";
-import Contact from "./Contact";
 import ProfileData from "./ProfileData";
 import ProfileDataForm from "./ProfileDataForm";
+import {UpdateProfileRequestType} from "../../../api/api";
 
 export type PropsType = {
     profile: ProfileType | null
     status: string
     updateStatus: (newStatus: string) => void
     isOwner: boolean
+    updateProfile: (data: UpdateProfileRequestType) => void
     savePhoto: (photo: any) => void
 }
 
-const ProfileInfo: React.FC<PropsType> = ({profile, updateStatus, status, isOwner, savePhoto}) => {
+const ProfileInfo: React.FC<PropsType> = ({profile, updateStatus, updateProfile,  status, isOwner, savePhoto}) => {
 
     const [editMode, setEditMode] = useState(false)
 
@@ -41,7 +42,8 @@ const ProfileInfo: React.FC<PropsType> = ({profile, updateStatus, status, isOwne
                 {editMode
                     ? <ProfileDataForm profile={profile}
                                        isOwner={isOwner}
-                                       diactivateEditMode={() => setEditMode(false)}/>
+                                       onSubmit={updateProfile}
+                                       deactivateEditMode={() => setEditMode(false)}/>
                     : <ProfileData profile={profile}
                                    isOwner={isOwner}
                                    activateEditMode={() => setEditMode(true)}/>}

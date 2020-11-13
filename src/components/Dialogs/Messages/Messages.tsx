@@ -25,7 +25,7 @@ export const Messages: React.FC<MessagesPropsType> = ({addMessageAC, messages}) 
 
     return <div className={classes.messages}>
         {messagesElements}
-        <AddMessageFormRedux onSubmit={addNewMessage}/>
+        <AddMessageFormRedux addNewMessage={addNewMessage}/>
     </div>;
 }
 

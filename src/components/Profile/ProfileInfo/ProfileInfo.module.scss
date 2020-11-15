@@ -9,16 +9,36 @@
     background: url(https://avatars.mds.yandex.net/get-pdb/1931145/0de97ef4-453a-4e9f-a1c3-20044af208ba/s1200?webp=false) 0 0/cover no-repeat;
   }
   &__photo {
-    border-radius: 50%;
+    border-radius: 999px;
     overflow: hidden;
     width: 200px;
     height: 200px;
-    margin: 0 auto;
-    margin-top: -100px;
+    margin: -100px auto 0;
+    position: relative;
     img {
       display: block;
       max-width: 100%;
       height: auto;
+    }
+    .customFileUpload {
+      position: absolute;
+      bottom: 5px;
+      right: 80px;
+      z-index: 10;
+      border-radius: 999px;
+      background-color: #1F4068;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        background-color: #344c69;
+      }
+       > img {
+         height: 40px;
+         width: 40px;
+       }
+    }
+     > input[type="file"] {
+      display: none;
     }
   }
   &__description {

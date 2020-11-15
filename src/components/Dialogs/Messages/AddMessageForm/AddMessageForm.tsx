@@ -13,10 +13,14 @@ type PropsType = {
 
 const AddMessageForm: React.FC<PropsType> = (props) => {
 
-    const {register, handleSubmit} = useForm<AddMessageFormType>()
+    const {register, handleSubmit, setValue} = useForm<AddMessageFormType>()
 
     const addNewMessage = handleSubmit(({newMessageBody}) => {
-        props.addNewMessage({newMessageBody})
+
+        if (newMessageBody) {
+            props.addNewMessage({newMessageBody})
+            setValue("newMessageBody", "")
+        }
     })
 
     return (

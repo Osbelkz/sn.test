@@ -1,0 +1,19 @@
+.contact {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #1f4068;
+  transition: -webkit-transform .2s ease-in-out;
+  transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+  margin-right: 10px;
+  &:hover {
+    background-color: #344c69;
+    transform: translateY(-5px);
+  }
+}

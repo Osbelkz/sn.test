@@ -28,8 +28,8 @@ export const profileReducer = (
             return {
                 ...state,
                 posts: [
+                    {id: uuid(), ...action.payload, likeCounter: 0},
                     ...state.posts,
-                    {id: uuid(), ...action.payload, likeCounter: 0}
                 ],
             }
         case ACTIONS_TYPE.ADD_LIKE:
@@ -53,7 +53,6 @@ export const profileReducer = (
                 ...action.payload
             }
         case ACTIONS_TYPE.UPDATE_PROFILE:
-            debugger
             return  {
                 ...state,
                 profile: {...state.profile, ...action.payload} as ProfileType | null
@@ -69,7 +68,7 @@ export const profileReducer = (
 }
 
 
-//Динамическая деспичеризация, не хватает типов, не работает
+//Динамическая диспетчеризация, не хватает типов, не работает
 // const actionObj: { [key: string]: ProfilePageStateType } = {
 //     [PROFILE_PAGE_ACTION_TYPE.ADD_POST]: {
 //         ...state,

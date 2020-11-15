@@ -3,6 +3,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 type PropsType = {
     status: string
     updateStatus: (newStatus: string) => void
+    isOwner: boolean
 }
 
 const ProfileStatusWithHooks:React.FC<PropsType> = (props) => {
@@ -15,7 +16,7 @@ const ProfileStatusWithHooks:React.FC<PropsType> = (props) => {
     },[props.status])
 
     const activateEditMode = () => {
-        setEditMode( true)
+        props.isOwner && setEditMode( true)
     }
     const deactivateEditMode = () => {
         setEditMode( false)

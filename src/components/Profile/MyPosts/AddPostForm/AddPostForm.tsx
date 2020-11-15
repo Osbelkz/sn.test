@@ -13,10 +13,13 @@ type AddPostFormPropsType = {
 
 const AddPostForm: React.FC<AddPostFormPropsType> = (props) => {
 
-    const {register, handleSubmit} = useForm<AddPostFormType>()
+    const {register, handleSubmit, setValue} = useForm<AddPostFormType>()
 
     const addNewPost = handleSubmit(({newPostBody}) => {
-        props.addNewPost({newPostBody})
+        if (newPostBody) {
+            props.addNewPost({newPostBody})
+            setValue("newPostBody", "")
+        }
     })
 
     return (

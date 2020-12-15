@@ -1,3 +1,10 @@
+.profile_data {
+  padding: 10px;
+  > p {
+    margin: 5px 0;
+  }
+}
+
 .social_links {
   display: -ms-flexbox;
   display: flex;

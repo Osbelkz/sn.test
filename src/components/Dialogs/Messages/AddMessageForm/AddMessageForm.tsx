@@ -1,7 +1,6 @@
 import React from 'react';
-import classes from "../Messages.module.scss";
+import classes from "./AddMessageForm.module.scss";
 import {useForm} from "react-hook-form";
-import {FormInput} from "../../../common/FormInput/FormInput";
 
 export type AddMessageFormType = {
     newMessageBody: string
@@ -24,14 +23,11 @@ const AddMessageForm: React.FC<PropsType> = (props) => {
     })
 
     return (
-        <form onSubmit={addNewMessage}>
-            <div className={classes.messages__input}>
-                <FormInput ref={register}
-                       name={"newMessageBody"}
-                       placeholder={"type a message..."}
-                />
-                <button>Send</button>
-            </div>
+        <form onSubmit={addNewMessage} className={classes.add_message_form}>
+            <input ref={register}
+                   name={"newMessageBody"}
+                   placeholder={"type a message..."}/>
+            <button>Send</button>
         </form>
     )
 }

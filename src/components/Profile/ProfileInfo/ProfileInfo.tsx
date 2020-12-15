@@ -2,10 +2,10 @@ import React, {ChangeEvent, useState} from "react";
 import classes from './ProfileInfo.module.scss'
 import {Preloader} from "../../UI/Preloader/Preloader";
 import userDefaultPhoto from "../../../assets/userDefaultPhoto.png";
-import ProfilePhotoSVG from "../../../assets/profile_photo/Photo-Profile-Outline.svg"
+import ProfilePhotoSVG from "../../../assets/profile_photo/Pencil-Outline.svg"
 import {ProfileType} from "../../../types/types";
-import ProfileData from "./ProfileData";
-import ProfileDataForm from "./ProfileDataForm";
+import ProfileData from "./ProfileData/ProfileData";
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 import {UpdateProfileRequestType} from "../../../api/api";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 

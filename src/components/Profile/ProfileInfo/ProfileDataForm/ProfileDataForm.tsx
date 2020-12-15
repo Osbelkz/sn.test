@@ -1,10 +1,10 @@
-import {ProfileType} from "../../../types/types";
+import {ProfileType} from "../../../../types/types";
 import React from "react";
-import {FormInput} from "../../common/FormInput/FormInput";
-import {UpdateProfileRequestType} from "../../../api/api";
+import {FormInput} from "../../../common/FormInput/FormInput";
+import {UpdateProfileRequestType} from "../../../../api/api";
 import {useForm} from "react-hook-form";
 import classes from "./ProfileDataForm.module.scss";
-import Button from "../../common/Buttons/Button/Button";
+import Button from "../../../common/Buttons/Button/Button";
 
 
 type ProfileDataFormPropsType = {

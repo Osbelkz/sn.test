@@ -2,24 +2,24 @@ import classes from "./Post.module.scss";
 import React from "react";
 import postPhoto from '../../../../assets/post-photo.jpg'
 import {AddLikePayloadType, DeletePostPayloadType} from "../../../../redux/reducers/actions/profile-actions";
+import {PostType} from "../../../../types/types";
+import Button from "../../../common/Buttons/Button/Button";
 
 type PropsType = {
-    message: string
-    likeCount: number
-    postId: string
+    post: PostType
     addLikeAC: (payload: AddLikePayloadType) => void
     deletePostAC: (payload: DeletePostPayloadType) => void
 }
 
 
-function Post({message, addLikeAC, deletePostAC, likeCount, postId}: PropsType) {
+function Post({post: {message, id, likeCounter}, addLikeAC, deletePostAC}: PropsType) {
 
     const OnClickHandler = () => {
-        addLikeAC({postId})
+        addLikeAC({postId: id})
     }
 
     const onDeletePost = () => {
-        deletePostAC({postId})
+        deletePostAC({postId: id})
     }
 
 
@@ -36,8 +36,8 @@ function Post({message, addLikeAC, deletePostAC, likeCount, postId}: PropsType) 
                     {message}
                 </div>
                 <div className={classes.post__body_footer}>
-                    <button onClick={OnClickHandler}>LIKE {likeCount}</button>
-                    <button onClick={onDeletePost}>Delete Post</button>
+                    <Button onClick={OnClickHandler}>Likes {likeCounter}</Button>
+                    <Button onClick={onDeletePost}>Delete Post</Button>
                 </div>
 
             </div>

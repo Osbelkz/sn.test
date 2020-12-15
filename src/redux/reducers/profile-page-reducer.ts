@@ -55,12 +55,12 @@ export const profileReducer = (
         case ACTIONS_TYPE.UPDATE_PROFILE:
             return  {
                 ...state,
-                profile: {...state.profile, ...action.payload} as ProfileType | null
+                profile: {...state.profile, ...action.payload} as ProfileType
             }
         case ACTIONS_TYPE.SET_USER_PHOTO:
             return {
                 ...state,
-                profile: {...state.profile, photos: action.payload} as ProfileType | null
+                profile: {...state.profile, photos: action.payload} as ProfileType
             }
         default:
             return state;

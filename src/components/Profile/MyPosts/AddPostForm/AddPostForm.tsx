@@ -1,6 +1,6 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
-import classes from "../MyPosts.module.scss";
+import classes from "./AddPostForm.module.scss";
 import {FormInput} from "../../../common/FormInput/FormInput";
 
 export type AddPostFormType = {
@@ -23,8 +23,8 @@ const AddPostForm: React.FC<AddPostFormPropsType> = (props) => {
     })
 
     return (
-        <form onSubmit={addNewPost} className={classes.posts__input}>
-            <FormInput
+        <form onSubmit={addNewPost} className={classes.posts_form}>
+            <textarea
                 ref={register}
                 name={"newPostBody"}
                 placeholder='type a post...'/>

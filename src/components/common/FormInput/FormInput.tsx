@@ -12,7 +12,7 @@ interface PropsType extends React.DetailedHTMLProps<
 
 export const FormInput = React.memo(React.forwardRef<HTMLInputElement, PropsType>(
     ({label, errorCondition, errorText,  ...rest }, ref) => {
-        console.log(ref)
+
         return (
             <div className={classes.input}>
                 <p className={classes.input__label}>{label}</p>

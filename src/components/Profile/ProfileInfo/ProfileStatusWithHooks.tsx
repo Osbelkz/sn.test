@@ -29,7 +29,7 @@ const ProfileStatusWithHooks:React.FC<PropsType> = (props) => {
     }
 
     return (
-            <div>
+            <div style={{margin: "5px"}}>
                 {!editMode
                     ? <div onDoubleClick={activateEditMode}>
                         {status || "no status"}

@@ -20,10 +20,8 @@ type PropsType = {
 const MyPosts: React.FC<PropsType> = ({posts, addPostAC, addLikeAC, deletePostAC}) => {
 
     let postElements = posts.map(post => <Post key={post.id}
-                                               postId={post.id}
-                                               message={post.message}
+                                               post={post}
                                                addLikeAC={addLikeAC}
-                                               likeCount={post.likeCounter}
                                                deletePostAC={deletePostAC}/>);
 
     const addNewPost = (values: AddPostFormType) => {

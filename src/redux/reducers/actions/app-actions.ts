@@ -1,14 +1,6 @@
-//              Auth ACTIONS
-//
-//
-//
-//
-//
-
 import {Dispatch} from "redux";
 import {RootStateType} from "../../redux-store";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "../app-reducer";
 import {getAuthUserDataTC} from "./auth-actions";
 
 export enum ACTIONS_TYPE {
@@ -24,7 +16,6 @@ interface IStringMap<T> {
 type IAnyFunction = (...args: any[]) => any;
 
 type IActionUnion<A extends IStringMap<IAnyFunction>> = ReturnType<A[keyof A]>;
-
 
 // export const setInitializedSuccessAC = makeAction<ACTIONS_TYPE.SET_INITIALIZED_SUCCESS,>(ACTIONS_TYPE.SET_INITIALIZED_SUCCESS)
 export const setInitializedSuccessAC = () => ({type: ACTIONS_TYPE.SET_INITIALIZED_SUCCESS})

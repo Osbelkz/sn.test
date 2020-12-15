@@ -1,8 +1,8 @@
-import {ProfileType} from "../../../types/types";
+import {ProfileType} from "../../../../types/types";
 import React from "react";
-import Contact from "./Contact/Contact";
+import Contact from "../Contact/Contact";
 import classes from "./ProfileData.module.scss";
-import Button from "../../common/Buttons/Button/Button";
+import Button from "../../../common/Buttons/Button/Button";
 
 type ProfileDataPropsType = {
     profile: ProfileType
@@ -12,11 +12,12 @@ type ProfileDataPropsType = {
 
 const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, activateEditMode}) => {
     return (
-        <>
-            <h3>{profile.fullName}{isOwner && <Button onClick={activateEditMode}>Edit profile</Button>}</h3>
-            <p>{profile.aboutMe}</p>
-            <p>looking for a job: {profile.lookingForAJob ? "yes" : "no"}</p>
-            <p>{profile.lookingForAJobDescription}</p>
+        <div className={classes.profile_data}>
+            <h3>{profile.fullName}</h3>
+            {profile.aboutMe && <p><b>About me: </b>{profile.aboutMe}</p>}
+            <p><b>Looking for a job: </b>{profile.lookingForAJob ? "yes" : "no"}</p>
+            {profile.lookingForAJobDescription && <p><b>Desription: </b>{profile.lookingForAJobDescription}</p>}
+            {isOwner && <Button onClick={activateEditMode}>Edit profile</Button>}
             <div className={classes.social_links}>
                 {Object.keys(profile.contacts).map((k) => {
                         let contactValue = profile.contacts[k]
@@ -29,7 +30,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, activate
                     }
                 )}
             </div>
-        </>
+        </div>
     );
 };
 

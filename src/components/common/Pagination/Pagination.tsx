@@ -44,6 +44,7 @@ const Pagination: React.FC<PropsType> = ({currentPage, itemsOnPage, totalItems, 
                 </>
                 }
                 {pages.map(pageN => <button
+                    key={pageN}
                     className={`${classes.pagination__btn} ${pageN === currentPage ? classes.pagination__btn_active : ""}`}
                     onClick={() => changePageNumber(pageN)}>{pageN}</button>)}
                 {currentPage < pagesCount - 4 && <>

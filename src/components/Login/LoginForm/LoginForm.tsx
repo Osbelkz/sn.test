@@ -24,7 +24,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
     const onSubmit = handleSubmit(({email, password, rememberMe, captcha}) => {
         props.onSubmit({email, password, rememberMe, captcha})
     })
-
+    console.log("login form")
     return (
         <form onSubmit={onSubmit} className={classes.loginForm}>
             <div className={classes.loginForm__field}>

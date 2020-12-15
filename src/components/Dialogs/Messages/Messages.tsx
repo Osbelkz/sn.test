@@ -1,9 +1,10 @@
 import Message from "./Message/Message";
 import React from "react";
 import classes from "./Messages.module.scss";
-import AddMessageFormRedux, { AddMessageFormType } from "./AddMessageForm/AddMessageForm";
+import { AddMessageFormType } from "./AddMessageForm/AddMessageForm";
 import {AddMessagePayloadType} from "../../../redux/reducers/actions/dialogs-actions";
 import { MessageType } from "../../../types/types";
+import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 type MessagesPropsType = {
     messages: Array<MessageType>
@@ -14,10 +15,6 @@ export const Messages: React.FC<MessagesPropsType> = ({addMessageAC, messages}) 
 
     let messagesElements = messages.map(m => <Message message={m} key={m.id}/>)
 
-    // function onPressEnter(e: KeyboardEvent<HTMLInputElement>) {
-    //     if (e.key === "Enter") {
-    //     }
-    // }
 
     const addNewMessage = (values: AddMessageFormType) => {
         addMessageAC({message: values.newMessageBody})
@@ -25,7 +22,7 @@ export const Messages: React.FC<MessagesPropsType> = ({addMessageAC, messages}) 
 
     return <div className={classes.messages}>
         {messagesElements}
-        <AddMessageFormRedux addNewMessage={addNewMessage}/>
+        <AddMessageForm addNewMessage={addNewMessage}/>
     </div>;
 }
 

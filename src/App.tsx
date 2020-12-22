@@ -32,7 +32,7 @@ const App: React.FC = () => {
 
     const catchAllUnhandledErrors = (promise: any) => {
         alert("some error occured")
-        console.error(promise)
+        // console.error(promise)
     }
 
     if (!init) {

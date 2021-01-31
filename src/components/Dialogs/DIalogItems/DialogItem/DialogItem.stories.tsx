@@ -1,5 +1,4 @@
 import React from 'react';
-import {action} from '@storybook/addon-actions';
 import {uuid} from "uuidv4";
 import DialogItem from "./DialogItem";
 import {BrowserRouter} from "react-router-dom";

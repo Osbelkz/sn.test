@@ -1,8 +1,4 @@
 
-import os from "./../assets/profile_photo/os.jpg"
-import banzai from "./../assets/profile_photo/banzai.jpg"
-import diko from "./../assets/profile_photo/diko.jpg"
-import gera from "./../assets/profile_photo/gera.jpg"
 import {uuid} from "uuidv4";
 // import {RerenderEntireTreeType} from "../index";
 import {profileReducer} from "./reducers/profile-page-reducer";

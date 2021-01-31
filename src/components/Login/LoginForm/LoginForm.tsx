@@ -24,12 +24,13 @@ const LoginForm: React.FC<PropsType> = (props) => {
     const onSubmit = handleSubmit(({email, password, rememberMe, captcha}) => {
         props.onSubmit({email, password, rememberMe, captcha})
     })
-    console.log("login form")
+
     return (
         <form onSubmit={onSubmit} className={classes.loginForm}>
             <div className={classes.loginForm__field}>
                 <FormInput name={"email"}
                        label={"Login"}
+                       defaultValue={process.env.REACT_APP_EMAIL}
                        errorText={errors.email?.message}
                        errorCondition={!!errors.email?.message}
                        ref={register({
@@ -41,6 +42,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
                 <FormInput type={"password"}
                        label={"Password"}
                        name={"password"}
+                       defaultValue={process.env.REACT_APP_PASSWORD}
                        errorText={errors.password?.message}
                        errorCondition={!!errors.password?.message}
                        ref={register({

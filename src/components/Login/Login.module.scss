@@ -46,6 +46,9 @@
       &__rememberMe {
         margin-top: 10px;
         display: flex;
+        > label {
+          margin-left: 10px;
+        }
       }
     }
   }
